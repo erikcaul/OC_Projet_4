@@ -11,4 +11,5 @@ class Tournament:
         self.turns_number = tunrs_number
         self.description = description
 
-        
+    def add_player(self):
+        pass

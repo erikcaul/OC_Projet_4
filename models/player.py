@@ -7,3 +7,6 @@ class Player:
         self.birth_date = birth_date
         self.sexe = sexe
         self.ranking =ranking
+
+    def create_player(self):
+        pass

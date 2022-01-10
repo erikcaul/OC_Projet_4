@@ -1,5 +1,6 @@
-"""main loop controleur : user chooses between options"""
-from models import player, tournament, game, round
+"""main loop controller : user chooses between options"""
+from controlers import create_tournament
+from models import tournament, player
 
 """Un contrôleur qui va faire main loop (choix option), 
 avant le choix, va appeler la vue "menu" pour afficher les options et ensuite attendre input 
@@ -7,12 +8,24 @@ Use an infinite loop to show the menu options.
 Ask the user for the options
 Use if-elif-else to determine what to do according to the user input. """
 
-class main_loop:
-    def __init__(self, menu_view):
-        self.menu_view = menu_view
-    # Infinite loop
-    run = True
-    while(run):
-        # afficher menu options
-        option = int(input('Enter your choice: '))
 
+class MainLoop:
+    def __init__(self, menu_view, active="True"):
+        self.menu_view = menu_view
+        self.active = active
+
+    def run(self):
+        """Run the menu option"""
+        while self.active:
+            choice = self.menu_view.prompt_menu_choice()
+            if choice == 1:
+                create_tournament.new_tournament()
+            elif choice == 2:
+                player.create_player()
+            elif choice == 3:
+                tournament.add_player()
+            elif choice == 4:
+                print("Thanks and have a good day!")
+                break
+            else:
+                print('Invalid option. Please enter a number between 1 and 4.')
