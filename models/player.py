@@ -8,5 +8,4 @@ class Player:
         self.sexe = sexe
         self.ranking =ranking
 
-    def create_player(self):
-        pass
+    
