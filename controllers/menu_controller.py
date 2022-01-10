@@ -1,6 +1,10 @@
 """main loop controller : user chooses between options"""
-from controlers import create_tournament
-from models import tournament, player
+from controllers import player_controller, tournement_controller
+from models import tournament
+from views.menu_view import MenuView
+from controllers.player_controller import PlayerController
+from controllers.tournement_controller import TournamentController
+
 
 """Un contrôleur qui va faire main loop (choix option), 
 avant le choix, va appeler la vue "menu" pour afficher les options et ensuite attendre input 
@@ -11,19 +15,21 @@ Use if-elif-else to determine what to do according to the user input. """
 
 class MainLoop:
     def __init__(self, menu_view, active="True"):
-        self.menu_view = menu_view
+        self.menu_view = MenuView()
         self.active = active
+        self.player_controller = PlayerController()
+        self.tournament_controller = TournamentController
 
     def run(self):
         """Run the menu option"""
         while self.active:
             choice = self.menu_view.prompt_menu_choice(self)
             if choice == 1:
-                create_tournament.CreateTournament.new_tournament(self)
+                tournement_controller.new_tournament()
             elif choice == 2:
-                player.create_player(self)
+                player_controller.create_player()
             elif choice == 3:
-                tournament.add_player(self)
+                tournement_controller.add_player()
             elif choice == 4:
                 print("Thanks and have a good day!")
                 active = False
