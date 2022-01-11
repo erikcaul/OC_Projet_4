@@ -18,7 +18,7 @@ class MainLoop:
         self.menu_view = MenuView()
         self.active = active
         self.player_controller = PlayerController()
-        self.tournament_controller = TournamentController
+        self.tournament_controller = TournamentController()
 
     def run(self):
         """Run the menu option"""
@@ -36,3 +36,4 @@ class MainLoop:
                 return active
             else:
                 print('Invalid option. Please enter a number between 1 and 4.')
+
