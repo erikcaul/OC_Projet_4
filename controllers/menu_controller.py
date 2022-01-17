@@ -18,22 +18,27 @@ class MainLoop:
         self.menu_view = MenuView()
         self.active = active
         self.player_controller = PlayerController()
-        self.tournament_controller = TournamentController()
+        self.tournament_controller = TournamentController(self.player_controller.players)
+
 
     def run(self):
         """Run the menu option"""
+        # utiliser un dict avec en key le numero option à choisir str, et en valeur mettre la ref. fonction
+        menu = {
+            "1": self.tournament_controller.new_tournament,
+            "2": self.player_controller.create_player,
+            "3": self.tournament_controller.add_player, 
+            "4": self.stop_game
+        }
+
         while self.active:
             choice = self.menu_view.prompt_menu_choice()
-            if choice == 1:
-                self.tournament_controller.new_tournament()
-            elif choice == 2:
-                self.player_controller.create_player()
-            elif choice == 3:
-                self.tournament_controller.add_player()
-            elif choice == 4:
-                print("Thanks and have a good day!")
-                self.active = False
-                return self.active
+            if choice in menu:
+                menu[choice]()
             else:
-                print('Invalid option. Please enter a number between 1 and 4.')
+                print("invalid option")
+        
+        print("Thanks and have a good day!")
 
+    def stop_game(self):
+        self.active = False 
