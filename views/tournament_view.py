@@ -6,8 +6,8 @@ class TournamentView:
         pass
 
     def prompt_tournament_creation(self):
-        """prompt info for the creaton of a tournament"""
-        tournament_info = []
+        """prompt info for the creation of a tournament"""
+        tournament_info = ['name', 'location', 'date', 0, 'bullet', 'description']
         tournament_info[0] = input('Enter the tournament name : ')
         tournament_info[1] = input('Enter the location of the tournament : ')
         tournament_info[2] = input('Enter the date of the tournament : ')

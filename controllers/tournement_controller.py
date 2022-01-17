@@ -13,6 +13,7 @@ class TournamentController:
         rounds = []
         players = []
         new_tournament = Tournament(new_tournement_info[0], new_tournement_info[1], new_tournement_info[2], rounds, players, new_tournement_info[4], new_tournement_info[3], new_tournement_info[5])
+        print(new_tournament)
         return new_tournament
 
     def add_player(self):
