@@ -5,18 +5,27 @@ from models.tournament import Tournament
 
 class TournamentController:
 
-    def __init__(self, players):
+    def __init__(self, players_all):
         self.tournament_view = TournamentView()
-        self.players = players # liste de tous les players
+        self.players_all = players_all # list of all players 
+        self.rounds = [] # rounds list
         # liste de tournament
         
 
     def new_tournament(self):
-        # ajouter le dict
         new_tournement_info = self.tournament_view.prompt_tournament_creation()
         rounds = []
         players = [] # liste des players du tournament
-        new_tournament = Tournament(new_tournement_info[0], new_tournement_info[1], new_tournement_info[2], rounds, players, new_tournement_info[4], new_tournement_info[3], new_tournement_info[5])
+        new_tournament = Tournament(
+            new_tournement_info["name"], 
+            new_tournement_info["location"], 
+            new_tournement_info["date"], 
+            rounds, 
+            players, 
+            new_tournement_info["time_controller"],
+            new_tournement_info["turns_number"], 
+            new_tournement_info["description"]
+            )       
         # print(new_tournament)
         return new_tournament
 
