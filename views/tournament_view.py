@@ -15,28 +15,25 @@ class TournamentView:
             "location": 'Enter the location of the tournament : ',
             "date": 'Enter the date of the tournament : ',
             "turns_number": 'Enter the number of turns for the tournament : ',
-            "time_controller": 'Please select the type for the time controlling (1. bullet, 2. blitz, 3. quick hit) : ',
+            "time_controller": 'Please select the type for the time controlling (bullet, blitz, quick hit) : ',
             "description": 'Please enter a description for the tournament: '
         }
-        tournament_info = {
-            "name":'',
-            "location":'',
-            "date":'',
-            "turns_number":'',
-            "time_controller":'',
-            "description":''}
-        for key, value in tournament_info.items():
-            while (value == "" or value == None):
-                value = input(tournament_dict[key])
-            while (key == 'date' and value is digit):
-                value = input(tournament_dict[key])
-                print('cle, valeur\n', key, value, "\n")
-            while (key == 'turns_number' and value > 4):
-                value = input(tournament_dict[key])
-                print('cle, valeur\n', key, value, "\n")
-            while (key == 'time_controller' and (value > 0 and value < 4)):
-                value = input(tournament_dict[key])
-                print('cle, valeur\n', key, value, "\n")
+        tournament_info = {}
+        for key, value in tournament_dict.items():
+            user_input = None
+            while user_input == "" or user_input == None:
+                user_input = input(value)
+            while key == 'date' and user_input is digit : # vérifier simplement DDMMYYYY
+                user_input = input(value)
+                print('cle, valeur\n', key, user_input, "\n")
+            if isinstance(user_input, str): # dans un while pour turn_numbers
+                user_input = int(user_input)
+            while key == 'turns_number' and user_input > 4: # toujours un str donc convertir en nombre
+                user_input = input(value)
+                print('cle, valeur\n', key, user_input, "\n")
+            while key == 'time_controller' and (user_input > 0 and user_input < 4): # valider Bullet, blitz and quick hit putôt que des int (list avec toutes les valeurs dont user_input doit être in the list)
+                user_input = input(value)
+                print('cle, valeur\n', key, user_input, "\n")
             
         # valider ce qui rentre (ne pas accepter qu'il ne rentre rien du tout et n'accepter que les 3 types prévus, et nombres de tours, dates, etc. avec un retry)
         # fonction d'input avec validation
