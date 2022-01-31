@@ -1,11 +1,39 @@
+from datetime import datetime
+
 """Tournament view"""
-from multiprocessing.sharedctypes import Value
-from unicodedata import digit
-from models.tournament import Tournament
 
 class TournamentView:
     def __init__(self):
-        pass
+        self.time_controller_list = ['bullet',
+            'blitz',
+            'quick hit'] 
+    
+    def validate_date(self, date_string):
+        format = "%d%m%Y"
+        try:
+            datetime.strptime(date_string, format)
+            return True
+            
+        except:
+            print("This is the incorrect date string format. It should be DDMMYYYY")
+            return False
+
+    def validate_number(self, number_string):
+        try:
+            number_string = int(number_string)
+            isinstance(number_string, str)
+            return True
+
+        except:
+            return False
+
+    def validate_list(self, list_string):
+        try:
+            for componant in self.time_controller_list:
+                if componant == list_string:
+                    return True
+        except:
+            return False
 
     def prompt_tournament_creation(self):
         """prompt info for the creation of a tournament"""
@@ -13,32 +41,25 @@ class TournamentView:
         tournament_dict = {
             "name": 'Enter the tournament name : ',
             "location": 'Enter the location of the tournament : ',
-            "date": 'Enter the date of the tournament : ',
+            "date": 'Enter the date of the tournament with DDMMYYYY format: ',
             "turns_number": 'Enter the number of turns for the tournament : ',
             "time_controller": 'Please select the type for the time controlling (bullet, blitz, quick hit) : ',
             "description": 'Please enter a description for the tournament: '
         }
-        tournament_info = {}
-        for key, value in tournament_dict.items():
+        for key, value in tournament_dict.items(): 
             user_input = None
             while user_input == "" or user_input == None:
                 user_input = input(value)
-            while key == 'date' and user_input is digit : # vérifier simplement DDMMYYYY
-                user_input = input(value)
-                print('cle, valeur\n', key, user_input, "\n")
-            if isinstance(user_input, str): # dans un while pour turn_numbers
-                user_input = int(user_input)
-            while key == 'turns_number' and user_input > 4: # toujours un str donc convertir en nombre
-                user_input = input(value)
-                print('cle, valeur\n', key, user_input, "\n")
-            while key == 'time_controller' and (user_input > 0 and user_input < 4): # valider Bullet, blitz and quick hit putôt que des int (list avec toutes les valeurs dont user_input doit être in the list)
-                user_input = input(value)
-                print('cle, valeur\n', key, user_input, "\n")
-            
-        # valider ce qui rentre (ne pas accepter qu'il ne rentre rien du tout et n'accepter que les 3 types prévus, et nombres de tours, dates, etc. avec un retry)
-        # fonction d'input avec validation
-        
-        return tournament_info
+            if key == 'date':
+                while not self.validate_date(user_input) :
+                    user_input = input(value)
+            if key == 'turns_number':
+                while not self.validate_number(user_input): 
+                    user_input = input(value)
+            if key == 'time_controller':
+                while not self.validate_list(user_input):
+                    user_input = input(value)        
+        return tournament_dict
 
 
     def prompt_add_player(self):
