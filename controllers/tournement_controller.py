@@ -9,7 +9,7 @@ class TournamentController:
         self.tournament_view = TournamentView()
         self.players_all = players_all # list of all players 
         self.rounds = [] # rounds list
-        # liste de tournament
+        self.tournament_list = [] # liste de tournament
         
 
     def new_tournament(self):
@@ -26,8 +26,8 @@ class TournamentController:
             new_tournement_info["turns_number"], 
             new_tournement_info["description"]
             )       
-        # print(new_tournament)
-        return new_tournament
+        self.tournament_list.append(new_tournament)
+        print(self.tournament_list)
 
     def add_player(self):
         # appeler la vue "tournament" avec différentes fonctionalités, dont pour ajouter player
