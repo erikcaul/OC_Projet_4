@@ -6,6 +6,6 @@ class Player:
         self.first_name = first_name
         self.birth_date = birth_date
         self.sexe = sexe
-        self.ranking =ranking
+        self.ranking = ranking
 
     
