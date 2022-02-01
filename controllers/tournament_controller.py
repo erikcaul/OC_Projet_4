@@ -27,7 +27,6 @@ class TournamentController:
             new_tournement_info["description"]
             )       
         self.tournaments_list.append(new_tournament)
-        print(self.tournaments_list)
 
     def add_player(self):
         # appeler la vue "tournament" avec différentes fonctionalités, dont pour ajouter player

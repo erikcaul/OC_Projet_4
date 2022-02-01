@@ -52,20 +52,27 @@ class TournamentView:
             "time_controller": 'Please select the type for the time controlling (bullet, blitz, quick hit) : ',
             "description": 'Please enter a description for the tournament: '
         }
+
+        tournament_info = {}
         for key, value in tournament_dict.items(): 
             user_input = None
             while user_input == "" or user_input == None:
                 user_input = input(value)
+                tournament_info[key] = user_input
             if key == 'date':
                 while not self.validate_date(user_input) :
                     user_input = input(value)
+                    tournament_info[key] = user_input
             if key == 'turns_number':
                 while not self.validate_number(user_input): 
                     user_input = input(value)
+                    tournament_info[key] = user_input
             if key == 'time_controller':
                 while not self.validate_list(user_input):
-                    user_input = input(value)        
-        return tournament_dict
+                    user_input = input(value)
+                    tournament_info[key] = user_input        
+        print(tournament_info)
+        return tournament_info
 
 
     def prompt_add_player(self, tournaments_list, players_all):

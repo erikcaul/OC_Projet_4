@@ -47,17 +47,23 @@ class PlayerView:
             "sexe": 'Please select the sexe of the player (male, female, not saying) : ',
             "ranking": 'Please enter the player ranking : '
             }
+        
+        player_info = {}
         for key, value in player_dict.items(): 
             user_input = None
             while user_input == "" or user_input == None:
                 user_input = input(value)
+                player_info[key] = user_input
             if key == 'birth_date':
                 while not self.validate_date(user_input) :
                     user_input = input(value)
+                    player_info[key] = user_input
             if key == 'ranking':
                 while not self.validate_number(user_input): 
                     user_input = input(value)
+                    player_info[key] = user_input
             if key == 'sexe':
                 while not self.validate_list(user_input):
-                    user_input = input(value)        
-        return player_dict
+                    user_input = input(value)
+                    player_info[key] = user_input        
+        return player_info
