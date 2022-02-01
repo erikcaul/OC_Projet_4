@@ -1,4 +1,6 @@
 from datetime import datetime
+from pprint import pprint
+
 
 """Tournament view"""
 
@@ -35,6 +37,10 @@ class TournamentView:
         except:
             return False
 
+    def print_instance(self, object_to_print):
+        pprint(vars(object_to_print))
+        # print(object_to_print.__dict__)
+
     def prompt_tournament_creation(self):
         """prompt info for the creation of a tournament"""
         # faire un dict plutôt qu'une liste avec initialisation à vide
@@ -62,9 +68,21 @@ class TournamentView:
         return tournament_dict
 
 
-    def prompt_add_player(self):
+    def prompt_add_player(self, tournaments_list, players_all):
         """prompt for adding player to a tournament"""
-        # récupérer la lste des players et la liste des tournaments
+        for tournament in tournaments_list:
+            self.print_instance(tournament)
+        for player in players_all:
+            self.print_instance(player)
+        # récupérer la liste des players et la liste des tournaments
+        # for element in tournaments_list:
+        #     for key, value in element.items():
+        #         print(key, ' : ', value)
+        # for element in players_all:
+        #     for key, value in element.items():
+        #         print(key, ' : ', value)
+        # self.print_instance(tournaments_list)
+        # self.print_instance(players_all)
         # afficher liste tournois 1 ... n et demande de choisir  quel tourois, pareil pour players qui sont pas encore dans tournoi
-        tournament_name = input('Please indicate the name of the tournament for which you want to add a player : ')
-        player_name = input("Please indicate the player's name you want to add to the tournament : ")
+        # tournament_name = input('Please indicate the name of the tournament for which you want to add a player : ')
+        # player_name = input("Please indicate the player's name you want to add to the tournament : ")
