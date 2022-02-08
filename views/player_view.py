@@ -9,34 +9,6 @@ class PlayerView:
             'male',
             'not saying'] 
 
-    def validate_date(self, date_string):
-        format = "%d%m%Y"
-        try:
-            datetime.strptime(date_string, format)
-            return True
-            
-        except:
-            print("This is the incorrect date string format. It should be DDMMYYYY")
-            return False
-
-    def validate_number(self, number_string):
-        try:
-            number_string = int(number_string)
-            isinstance(number_string, str)
-            if number_string > 0:
-                return True
-
-        except:
-            return False
-
-    def validate_list(self, list_string):
-        try:
-            for componant in self.sexe_list:
-                if componant == list_string:
-                    return True
-        except:
-            return False
-
     def prompt_player_creation(self):
         """prompt info for the creation of a player"""
         # faire un dict plutôt qu'une liste avec initialisation à vide
@@ -55,15 +27,15 @@ class PlayerView:
                 user_input = input(value)
                 player_info[key] = user_input
             if key == 'birth_date':
-                while not self.validate_date(user_input) :
+                while not self.tools.validate_date(user_input):
                     user_input = input(value)
                     player_info[key] = user_input
             if key == 'ranking':
-                while not self.validate_number(user_input): 
+                while not self.tools.validate_number(user_input): 
                     user_input = input(value)
                     player_info[key] = user_input
             if key == 'sexe':
-                while not self.validate_list(user_input):
+                while not self.tools.validate_list(user_input, self.sexe_list):
                     user_input = input(value)
                     player_info[key] = user_input        
         return player_info

@@ -1,12 +1,14 @@
 """Tournaments Controller"""
 from views.tournament_view import TournamentView
 from models.tournament import Tournament
+from controllers.tools import Tools
 
 
 class TournamentController:
 
     def __init__(self, players_all):
         self.tournament_view = TournamentView()
+        self.tools = Tools()
         self.players_all = players_all # list of all players 
         self.rounds = [] # rounds list
         self.tournaments_list = [] # liste de tournament
@@ -29,7 +31,6 @@ class TournamentController:
         self.tournaments_list.append(new_tournament)
 
     def add_player(self):
-        # appeler la vue "tournament" avec différentes fonctionalités, dont pour ajouter player
-        self.tournament_view.prompt_add_player(self.tournaments_list, self.players_all)
-        # validate entries 
+        self.tools.pick_up_tournament(self.tournaments_list)
+        self.tools.pick_up_player(self.players_all)
 
