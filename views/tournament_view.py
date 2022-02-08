@@ -1,45 +1,14 @@
-from datetime import datetime
-from pprint import pprint
-
 
 """Tournament view"""
+from controllers.tools import Tools
+
 
 class TournamentView:
     def __init__(self):
+        self.tools = Tools()
         self.time_controller_list = ['bullet',
             'blitz',
             'quick hit'] 
-    
-    def validate_date(self, date_string):
-        format = "%d%m%Y"
-        try:
-            datetime.strptime(date_string, format)
-            return True
-            
-        except:
-            print("This is the incorrect date string format. It should be DDMMYYYY")
-            return False
-
-    def validate_number(self, number_string):
-        try:
-            number_string = int(number_string)
-            isinstance(number_string, str)
-            return True
-
-        except:
-            return False
-
-    def validate_list(self, list_string):
-        try:
-            for componant in self.time_controller_list:
-                if componant == list_string:
-                    return True
-        except:
-            return False
-
-    def print_instance(self, object_to_print):
-        pprint(vars(object_to_print))
-        # print(object_to_print.__dict__)
 
     def prompt_tournament_creation(self):
         """prompt info for the creation of a tournament"""
@@ -60,36 +29,24 @@ class TournamentView:
                 user_input = input(value)
                 tournament_info[key] = user_input
             if key == 'date':
-                while not self.validate_date(user_input) :
+                while not self.tools.validate_date(user_input):
                     user_input = input(value)
                     tournament_info[key] = user_input
             if key == 'turns_number':
-                while not self.validate_number(user_input): 
+                while not self.tools.validate_number(user_input): 
                     user_input = input(value)
                     tournament_info[key] = user_input
             if key == 'time_controller':
-                while not self.validate_list(user_input):
+                while not self.tools.validate_list(user_input, self.time_controller_list):
                     user_input = input(value)
                     tournament_info[key] = user_input        
-        print(tournament_info)
         return tournament_info
 
-
-    def prompt_add_player(self, tournaments_list, players_all):
-        """prompt for adding player to a tournament"""
-        for tournament in tournaments_list:
-            self.print_instance(tournament)
-        for player in players_all:
-            self.print_instance(player)
-        # récupérer la liste des players et la liste des tournaments
-        # for element in tournaments_list:
-        #     for key, value in element.items():
-        #         print(key, ' : ', value)
-        # for element in players_all:
-        #     for key, value in element.items():
-        #         print(key, ' : ', value)
-        # self.print_instance(tournaments_list)
-        # self.print_instance(players_all)
+    # pick-up instance de tournament ou de player (pas trop générique faire pour chacun d'eux)
+    # ne pas porposer un joueur qui est déjà dans le tournoi
+    # 
+    
+        
         # afficher liste tournois 1 ... n et demande de choisir  quel tourois, pareil pour players qui sont pas encore dans tournoi
         # tournament_name = input('Please indicate the name of the tournament for which you want to add a player : ')
         # player_name = input("Please indicate the player's name you want to add to the tournament : ")
