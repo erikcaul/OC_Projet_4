@@ -1,4 +1,5 @@
 """Tournaments Controller"""
+from models.player import Player
 from views.tournament_view import TournamentView
 from models.tournament import Tournament
 from controllers.tools import Tools
@@ -31,6 +32,8 @@ class TournamentController:
         self.tournaments_list.append(new_tournament)
 
     def add_player(self):
-        self.tools.pick_up_tournament(self.tournaments_list)
-        self.tools.pick_up_player(self.players_all)
-
+        pick_tournament = self.tools.pick_up_tournament(self.tournaments_list)
+        players_list_for_choiced_tournament = pick_tournament.players
+        for player in self.players_all:
+            while player not in players_list_for_choiced_tournament:     
+                players_list_for_choiced_tournament.append(self.tools.pick_up_player(self.players_all))

@@ -1,10 +1,11 @@
-from datetime import datetime
+from controllers.tools import Tools
 
 
 """Player view"""
 
 class PlayerView:
     def __init__(self):
+        self.tools = Tools()
         self.sexe_list = ['female',
             'male',
             'not saying'] 
