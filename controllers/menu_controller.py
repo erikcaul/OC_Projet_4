@@ -1,9 +1,8 @@
 """main loop controller : user chooses between options"""
-from controllers import player_controller, tournement_controller
-from models import tournament
+
 from views.menu_view import MenuView
 from controllers.player_controller import PlayerController
-from controllers.tournement_controller import TournamentController
+from controllers.tournament_controller import TournamentController
 
 
 """Un contrôleur qui va faire main loop (choix option), 

@@ -10,3 +10,4 @@ class Tournament:
         self.time_controller = time_controller
         self.turns_number = tunrs_number
         self.description = description
+
