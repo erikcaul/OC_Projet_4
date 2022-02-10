@@ -17,7 +17,7 @@ class PlayerView:
             "family_name": 'Enter the player family name : ',
             "first_name": 'Enter the player first name : ',
             "birth_date": 'Enter the birth date of the player with DDMMYYYY format: ',
-            "sexe": 'Please select the sexe of the player (male, female, not saying) : ',
+            "sexe": 'Please select the sexe of the player (male, female, not binary) : ',
             "ranking": 'Please enter the player ranking : '
             }
         
