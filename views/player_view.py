@@ -40,3 +40,5 @@ class PlayerView:
                     user_input = input(value)
                     player_info[key] = user_input        
         return player_info
+
+    
