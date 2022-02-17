@@ -34,13 +34,14 @@ class Tools:
         except:
             return False
 
-    def print_choice_list(self, list, menu):
+    def print_name_list(self, list):
+        menu_instance = {}
         i = 1
         for element in list:
-                menu[str(i)] = element.name 
+                menu_instance[str(i)] = element.name 
                 print(str(i) + '. ' + element.name)
                 i += 1
-        return menu
+        return menu_instance
 
     def validate_menu_choice(self, choice, menu, list):
         try:
