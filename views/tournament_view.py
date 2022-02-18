@@ -54,13 +54,17 @@ class TournamentView:
         pick_up_tournament = self.tools.validate_menu_choice(tournament_choice, menu_instance, list)
         return pick_up_tournament
 
-    def pick_up_player(self, list):
+    def pick_up_player(self, all_players_list, tournament_players_list):
         """prompt to pick-up a player"""
         print('Players names : ')
         # menu_instance = {}
-        menu_instance = self.tools.print_name_list(list)
+        filtered_players_list = []
+        for player in all_players_list:
+            if player not in tournament_players_list:
+                filtered_players_list.append(player)
+        menu_instance = self.tools.print_name_list(filtered_players_list)
         tournament_choice = input('Choice the player: ')
-        pick_up_player = self.tools.validate_menu_choice(tournament_choice, menu_instance, list)
+        pick_up_player = self.tools.validate_menu_choice(tournament_choice, menu_instance, filtered_players_list)
         return pick_up_player
 
         # afficher liste tournois 1 ... n et demande de choisir  quel tourois, pareil pour players qui sont pas encore dans tournoi

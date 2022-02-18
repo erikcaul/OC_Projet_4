@@ -33,7 +33,7 @@ class TournamentController:
 
     def add_player(self):
         pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
-        players_list_for_choiced_tournament = pick_tournament.players
-        for player in self.players_all:
-            while player not in players_list_for_choiced_tournament:     
-                players_list_for_choiced_tournament.append(self.tournament_view.pick_up_player(self.players_all))
+        if pick_tournament is None: 
+            return
+        pick_player = self.tournament_view.pick_up_player(self.players_all, pick_tournament.players)
+        pick_tournament.players.append(pick_player) 
