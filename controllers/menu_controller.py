@@ -27,7 +27,8 @@ class MainLoop:
             "1": self.tournament_controller.new_tournament,
             "2": self.player_controller.create_player,
             "3": self.tournament_controller.add_player, 
-            "4": self.stop_game
+            "4": 'créer un tour', 
+            "5": self.stop_game
         }
 
         while self.active:
