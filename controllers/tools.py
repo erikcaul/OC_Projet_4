@@ -51,3 +51,6 @@ class Tools:
                 return pick_up_element
         except:
             print("invalid option")  
+
+    def match_making(self, tournament):
+        pass
