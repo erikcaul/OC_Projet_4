@@ -10,6 +10,7 @@ class MenuView:
               "1. Create a tournament\n"
               "2. Create a player\n"
               "3. Add a player to a tournament\n"
-              "4. Quit\n")
-        choice = input('Enter your choice between 1 and 4 : \n')
+              "4. create a round for a tournament\n"
+              "5. Quit\n")
+        choice = input('Enter your choice between 1 and 5 : \n')
         return choice

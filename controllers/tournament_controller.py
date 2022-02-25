@@ -35,5 +35,18 @@ class TournamentController:
         pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
         if pick_tournament is None: 
             return
+        if len(pick_tournament.rounds) != 0:
+            return 
         pick_player = self.tournament_view.pick_up_player(self.players_all, pick_tournament.players)
         pick_tournament.players.append(pick_player) 
+
+    def create_a_round(self):
+        pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
+        tournament_players_count = len(pick_tournament.players)
+        if tournament_players_count < 2 :
+            print("Add more player please ! ")
+            return
+        self.tools.match_making(pick_tournament)
+        print(pick_tournament.name)
+        print(pick_tournament.players)
+        print(tournament_players_count)
