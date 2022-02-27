@@ -53,10 +53,6 @@ class Tools:
         except:
             print("invalid option")
 
-    # def split_list(self, list):
-        # half = len(list)//2
-        # return list[:half], list[half:]
-
     def match_making(self, tournament):
         # Au début du premier tour, triez tous les joueurs en fonction de leur classement.
         # trier tous les joueurs en fonction de leur classement
@@ -85,7 +81,9 @@ class Tools:
             round1[i+1] = (element1[0], list2[i][0])
             i+=1
         print(round1)
+        return round1
         # Au prochain tour, triez tous les joueurs en fonction de leur nombre total de points.
+
         # Si plusieurs joueurs ont le même nombre de points, triez-les en fonction de leur rang.
         # Associez le joueur 1 avec le joueur 2, le joueur 3 avec le joueur 4, et ainsi de suite. Si le joueur 1 a déjà joué contre le joueur 2, associez-le plutôt au joueur 3.
         # Répétez les étapes 3 et 4 jusqu'à ce que le tournoi soit terminé.

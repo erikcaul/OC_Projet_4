@@ -1,8 +1,10 @@
 """Tournaments Controller"""
 from models.player import Player
+from models.round import Round
 from views.tournament_view import TournamentView
 from models.tournament import Tournament
 from controllers.tools import Tools
+import datetime
 
 
 class TournamentController:
@@ -46,4 +48,21 @@ class TournamentController:
         if tournament_players_count < 2 :
             print("Add more player please ! ")
             return
-        self.tools.match_making(pick_tournament)
+
+        games = self.tools.match_making(pick_tournament)
+        begin_date = datetime.datetime
+        end_date = datetime.datetime
+        # curr_date = datetime.datetime
+        # begin_date = datetime.datetime.strptime(curr_date, "%m/%d/%y")
+        # end_date = begin_date + datetime.timedelta(days=1)
+        # end_date = datetime.datetime.strptime(curr_date, "%m/%d/%y")
+        new_round = Round(
+            'round1',
+            games,
+            begin_date,
+            end_date
+        )
+        print(new_round.round_name)
+        print(new_round.games)
+        print(new_round.begin_date)
+        print(new_round.end_date)
