@@ -61,3 +61,7 @@ class TournamentView:
         tournament_choice = input('Choice the player: ')
         pick_up_player = self.tools.validate_menu_choice(tournament_choice, menu_instance, filtered_players_list)
         return pick_up_player
+
+    def prompt_game_result(self):
+        """ prompt result from the user for a game"""
+        pass

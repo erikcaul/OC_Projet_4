@@ -1,6 +1,7 @@
 """Tournaments Controller"""
 from models.player import Player
 from models.round import Round
+from models.game import Game
 from views.tournament_view import TournamentView
 from models.tournament import Tournament
 from controllers.tools import Tools
@@ -47,8 +48,8 @@ class TournamentController:
 
 
     def match_making(self, tournament):
-        # Au début du premier tour, triez tous les joueurs en fonction de leur classement.
-        # trier tous les joueurs en fonction de leur classement
+        # condition qui me dit si je suis au 1er ou  n tours
+        # Si au début du premier tour, triez tous les joueurs en fonction de leur classement
         tournament_players = tournament.players
 
         sorted_tournament_players = sorted(tournament_players, key=lambda p: p.ranking, reverse=True)
@@ -66,23 +67,24 @@ class TournamentController:
         # Le meilleur joueur de la moitié supérieure est jumelé avec le meilleur joueur de la moitié inférieure,
         # et ainsi de suite.
         # Si nous avons huit joueurs triés par rang, alors le joueur 1 est jumelé avec le joueur 5, le joueur 2 est jumelé avec le joueur 6, etc.
+        
+        # créer un objet game et l'ajouter à une liste
+        # retourner la liste de mon instance games (avec begin_date pour chaque) 
         games_list = []
         i = 0
-        for i in (len(sorted_tournament_players) - 1):
+        for i in (half - 1):
             new_game = Game(
                 list1[i],
                 list2[i],
-                None,
-                None,
                 datetime.datetime.now()
             )
             games_list.append(new_game)
 
         return games_list
 
+        # Si nème tour autre algo pour définir les games
 
-        # créer un objet game et l'ajouter à une liste
-        # retourner la liste de mes instances game (avec begin_date pour chaque)
+        
         #
         # round1 = {}
         # i = 0
@@ -110,15 +112,31 @@ class TournamentController:
             if tournament_players_count // 2 == tournament_rounds_count:
                 games = self.match_making(pick_tournament)
                 begin_date = datetime.datetime.now()
-                end_date = None # quand on va fermer le tour
-                tournament_turn_number = len(pick_tournament.rounds)
+                tournament_turn_number = len(pick_tournament.rounds) + 1
                 round_name = 'Round' + str(tournament_turn_number)
                 new_round = Round(
                     round_name,
-                    games
+                    games,
+                    begin_date
                 )
                 print(new_round.round_name)
                 print(new_round.games)
         else:
             print("Add more player please !")
             return
+
+    def play_a_round(self):
+        pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
+        # Validate Round exists
+
+        # Select last Round
+
+        # Prompt view for scores completion 
+        # boucle sur les games
+        for game in round.games:
+            game_result = self.tournament_view.prompt_game_result(game)
+            game.player_1_win
+
+        # update players classement in the tournament
+        # update player_ranking of the Tournament
+
