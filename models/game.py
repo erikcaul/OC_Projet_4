@@ -7,5 +7,3 @@ class game:
         self.player_1_win = player_1_win
         self.player_2_win = player_2_win
         self.begin_date = begin_date
-
-
