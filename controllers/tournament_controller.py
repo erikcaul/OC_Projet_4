@@ -45,7 +45,20 @@ class TournamentController:
             return
         pick_player = self.tournament_view.pick_up_player(self.players_all, pick_tournament.players)
         pick_tournament.players.append(pick_player)
+        pick_tournament.players_points[pick_player] = 0
 
+    def already_players_list(self, player):
+        """List of the players whose have already played with the player"""
+        already_players_played_list = []
+        for round in self.rounds:
+            for game in round.games:
+                if game.player_1 == player:
+                    already_players_played_list.append(game.player_2)
+                    break
+                if game.player_2 == player:
+                    already_players_played_list.append(game.player_1)
+                    break
+        return already_players_played_list
 
     def match_making(self, tournament):
         # Validate if it is the first round or not
@@ -71,19 +84,27 @@ class TournamentController:
         else:
             # N round : Sorting all the players with their points number
             players_points_dict = tournament.players_points
-            sorted_players_points_dict = sorted(players_points_dict.items(), key=lambda item: item[1])
-            sorted_tournament_players = []
-            i = 0
-            for i in len(sorted_players_points_dict):
-                if sorted_players_points_dict.items()[i][1] == sorted_players_points_dict.value()[i+1][1]:
-                    play1 = sorted_players_points_dict.keys()[i]
-                    play2 = sorted_players_points_dict.keys()[i+1]
-                if play1.ranking < play2.ranking:
-                    sorted_tournament_players.append(play2)
-                else:
-                    sorted_tournament_players.append(play1)
-        def create_a_round(self):
+            sorted_players_points_dict = sorted(players_points_dict.items(), key=lambda item: (item[1], item[0].ranking))
+            sorted_players_list = map(lambda item: item[0], sorted_players_points_dict)
+            # Create a Game object and add it to a list
+            games_list = []
+            
+            while len(sorted_players_list) > 0:
+                play1 = sorted_players_list[0]
+                already_players_played_list = self.already_players_played_list(play1)
+                list_rest_players = sorted_players_list - already_players_played_list - [play1]
+                new_game = Game(
+                    play1,
+                    list_rest_players[0],
+                    datetime.datetime.now()
+                )
+                games_list.append(new_game)
+                sorted_players_list.remove(play1)
+                sorted_players_list.remove(list_rest_players[0])
+            return games_list
+            
 
+    def create_a_round(self):
         pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
         tournament_players_count = len(pick_tournament.players)
         tournament_rounds_count = pick_tournament.turns_number
