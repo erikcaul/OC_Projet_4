@@ -14,5 +14,5 @@ class MenuView:
               "5. Play a round\n"
               "6. Update players ranking\n"
               "7. Quit\n")
-        choice = input('Enter your choice between 1 and 5 : \n')
+        choice = input('Enter your choice between 1 and 7 : \n')
         return choice

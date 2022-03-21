@@ -46,6 +46,7 @@ class TournamentController:
         pick_player = self.tournament_view.pick_up_player(self.players_all, pick_tournament.players)
         pick_tournament.players.append(pick_player)
         pick_tournament.players_points[pick_player] = 0
+        print(pick_tournament.players)
 
     def already_players_list(self, player):
         """List of the players whose have already played with the player"""
@@ -72,14 +73,15 @@ class TournamentController:
             list2 = sorted_tournament_players[half:]
             # Create a Game object and add it to a list
             games_list = []
-            i = 0
-            for i in (half - 1):
+            # i = 0
+            for i in range(half):
                 new_game = Game(
                     list1[i],
                     list2[i],
                     datetime.datetime.now()
                 )
                 games_list.append(new_game)
+                print(games_list)
             return games_list
         else:
             # N round : Sorting all the players with their points number
@@ -110,7 +112,7 @@ class TournamentController:
     def create_a_round(self):
         pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
         tournament_players_count = len(pick_tournament.players)
-        tournament_rounds_count = pick_tournament.turns_number
+        tournament_rounds_count = int(pick_tournament.turns_number)
         # vérifer que le nombre de joueur est pair
         if tournament_players_count % 2 == 0:
             # + vérifier qu'il y a suffisemment de joureurs pour faire tous les tours du tournois
@@ -124,6 +126,8 @@ class TournamentController:
                     games,
                     begin_date
                 )
+                pick_tournament.rounds.append(new_round)
+                print("Round created with success")
         else:
             print("Add more player please !")
             return
@@ -131,33 +135,34 @@ class TournamentController:
     def play_a_round(self):
         pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
         # Validate Round exists
-        if len(tournament.rounds) > 0:
+        if len(pick_tournament.rounds) > 0:
             # Select last Round
             actuel_round = pick_tournament.rounds[-1]
             # Prompt view for scores completion
             # self:tournament_view.prompt_game_result(actuel_round.games)
             # boucle sur les games
-            for game in round.games:
+            for game in actuel_round.games:
                 # pick_up_player for the winner
                 game_result = self.tournament_view.prompt_games_results(game)
                 if game_result == '1':
                     game.player_1_win = True
                     game.player_2_win = False
                     game.end_date = datetime.datetime.now()
-                    pick_tournament.players_points[player_1] += 1
+                    pick_tournament.players_points[game.player_1] += 1
                 elif game_result == '2':
                     game.player_1_win = False
                     game.player_2_win = True
                     game.end_date = datetime.datetime.now()
-                    pick_tournament.players_points[player_2] += 1
+                    pick_tournament.players_points[game.player_2] += 1
                 elif game_result == '0':
                     game.player_1_win = False
                     game.player_2_win = False
                     game.end_date = datetime.datetime.now()
-                    pick_tournament.players_points[player_1] += 0.5
-                    pick_tournament.players_points[player_2] += 0.5
+                    pick_tournament.players_points[game.player_1] += 0.5
+                    pick_tournament.players_points[game.player_2] += 0.5
                 else:
                     print("Incorrect answer")
+            print(pick_tournament.players_points)
         else:
             print("No round in the tournament existed")
         # update players classement in the tournament
@@ -168,5 +173,6 @@ class TournamentController:
         pick_up_player = self.tournament_view.pick_up_player(self.players_all, [])
         print("Player selected : " + pick_up_player.name)
         # prompt new score
-        new_score = input('Please enter the new score for the player selected')
+        new_score = input('Please enter the new score for the player selected :\n')
         pick_up_player.ranking = new_score
+        print(pick_up_player.name + " = " + pick_up_player.ranking)
