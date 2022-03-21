@@ -5,8 +5,8 @@ from controllers.player_controller import PlayerController
 from controllers.tournament_controller import TournamentController
 
 
-"""Un contrôleur qui va faire main loop (choix option), 
-avant le choix, va appeler la vue "menu" pour afficher les options et ensuite attendre input 
+"""Un contrôleur qui va faire main loop (choix option),
+avant le choix, va appeler la vue "menu" pour afficher les options et ensuite attendre input
 Use an infinite loop to show the menu options.
 Ask the user for the options
 Use if-elif-else to determine what to do according to the user input. """
@@ -26,10 +26,11 @@ class MainLoop:
         menu = {
             "1": self.tournament_controller.new_tournament,
             "2": self.player_controller.create_player,
-            "3": self.tournament_controller.add_player, 
+            "3": self.tournament_controller.add_player,
             "4": self.tournament_controller.create_a_round,
-            "5": self.tournament_controller.play_a_round, 
-            "6": self.stop_game
+            "5": self.tournament_controller.play_a_round,
+            "6": self.tournament_controller.update_player_ranking, 
+            "7": self.stop_game
         }
 
         while self.active:
@@ -38,8 +39,8 @@ class MainLoop:
                 menu[choice]()
             else:
                 print("invalid option")
-        
+
         print("Thanks and have a good day!")
 
     def stop_game(self):
-        self.active = False 
+        self.active = False
