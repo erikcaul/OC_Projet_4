@@ -163,10 +163,10 @@ class TournamentController:
         # update players classement in the tournament
         # update player_ranking of the Tournament
 
-        def update_player_ranking(self):
-            # pick_up_player
-            pick_up_player = self.tournament_view.pick_up_player(self.players_all, [])
-            print("Player selected : " + pick_up_player.name)
-            # prompt new score
-            new_score = input('Please enter the new score for the player selected')
-            pick_up_player.ranking = new_score
+    def update_player_ranking(self):
+        # pick_up_player
+        pick_up_player = self.tournament_view.pick_up_player(self.players_all, [])
+        print("Player selected : " + pick_up_player.name)
+        # prompt new score
+        new_score = input('Please enter the new score for the player selected')
+        pick_up_player.ranking = new_score
