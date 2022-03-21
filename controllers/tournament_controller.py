@@ -88,7 +88,7 @@ class TournamentController:
             sorted_players_list = map(lambda item: item[0], sorted_players_points_dict)
             # Create a Game object and add it to a list
             games_list = []
-            
+
             while len(sorted_players_list) > 0:
                 play1 = sorted_players_list[0]
                 already_players_played_list = self.already_players_played_list(play1)
@@ -102,7 +102,7 @@ class TournamentController:
                 sorted_players_list.remove(play1)
                 sorted_players_list.remove(list_rest_players[0])
             return games_list
-            
+
 
     def create_a_round(self):
         pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
@@ -130,14 +130,31 @@ class TournamentController:
     def play_a_round(self):
         pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
         # Validate Round exists
-
-        # Select last Round
-
-        # Prompt view for scores completion
-        # boucle sur les games
-        for game in round.games:
-            game_result = self.tournament_view.prompt_game_result(game)
-            game.player_1_win
-
+        if len(tournament.rounds) > 0:
+            # Select last Round
+            actuel_round = pick_tournament.rounds[-1]
+            # Prompt view for scores completion
+            # self:tournament_view.prompt_game_result(actuel_round.games)
+            # boucle sur les games
+            for game in round.games:
+                game_result = self.tournament_view.prompt_game_result(game)
+                if game_result == game.player_1:
+                    game.player_1_win = True
+                    game.player_2_win = False
+                    game.end_date = datetime.datetime.now()
+                    pick_tournament.players_points[player_1] = pick_tournament.players_points[player_1] + 1
+                elif game_result == game.player_2:
+                    game.player_1_win = False
+                    game.player_2_win = True
+                    game.end_date = datetime.datetime.now()
+                    pick_tournament.players_points[player_1] = pick_tournament.players_points[player_2] + 1
+                elif game_result == 'Null':
+                    game.player_1_win = False
+                    game.player_2_win = False
+                    game.end_date = datetime.datetime.now()
+                    pick_tournament.players_points[player_1] = pick_tournament.players_points[player_1] + 0.5
+                    pick_tournament.players_points[player_1] = pick_tournament.players_points[player_2] + 0.5
+                else:
+                    print("Incorrect answer")
         # update players classement in the tournament
         # update player_ranking of the Tournament

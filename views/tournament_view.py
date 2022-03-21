@@ -8,7 +8,7 @@ class TournamentView:
         self.tools = Tools()
         self.time_controller_list = ['bullet',
             'blitz',
-            'quick hit'] 
+            'quick hit']
 
     def prompt_tournament_creation(self):
         """prompt info for the creation of a tournament"""
@@ -23,7 +23,7 @@ class TournamentView:
         }
 
         tournament_info = {}
-        for key, value in tournament_dict.items(): 
+        for key, value in tournament_dict.items():
             user_input = None
             while user_input == "" or user_input == None:
                 user_input = input(value)
@@ -33,13 +33,13 @@ class TournamentView:
                     user_input = input(value)
                     tournament_info[key] = user_input
             if key == 'turns_number':
-                while not self.tools.validate_number(user_input): 
+                while not self.tools.validate_number(user_input):
                     user_input = input(value)
                     tournament_info[key] = user_input
             if key == 'time_controller':
                 while not self.tools.validate_list(user_input, self.time_controller_list):
                     user_input = input(value)
-                    tournament_info[key] = user_input        
+                    tournament_info[key] = user_input
         return tournament_info
 
     def pick_up_tournament(self, list):
@@ -62,6 +62,7 @@ class TournamentView:
         pick_up_player = self.tools.validate_menu_choice(tournament_choice, menu_instance, filtered_players_list)
         return pick_up_player
 
-    def prompt_game_result(self):
+    def prompt_game_result(self, game):
         """ prompt result from the user for a game"""
-        pass
+        winner = input("Please enter the winner for this game : ", game)
+        return winner
