@@ -3,6 +3,7 @@
 from views.menu_view import MenuView
 from controllers.player_controller import PlayerController
 from controllers.tournament_controller import TournamentController
+from controllers.report_management import ReportManagement
 
 
 """Un contrôleur qui va faire main loop (choix option),
@@ -18,6 +19,7 @@ class MainLoop:
         self.active = active
         self.player_controller = PlayerController()
         self.tournament_controller = TournamentController(self.player_controller.players)
+        self.report_management = ReportManagement(self)
 
 
     def run(self):
@@ -29,8 +31,9 @@ class MainLoop:
             "3": self.tournament_controller.add_player,
             "4": self.tournament_controller.create_a_round,
             "5": self.tournament_controller.play_a_round,
-            "6": self.tournament_controller.update_player_ranking, 
-            "7": self.stop_game
+            "6": self.tournament_controller.update_player_ranking,
+            "7": self.report_management.choose_a_report, 
+            "8": self.stop_game
         }
 
         while self.active:
