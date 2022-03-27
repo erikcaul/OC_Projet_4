@@ -16,3 +16,8 @@ class ReportView:
               "8. Quit\n")
         choice = input('Enter your choice between 1 and 8 : \n')
         return choice
+
+
+    def print_element_report(self, element_list):
+        for element in element_list:
+            print(element.name)

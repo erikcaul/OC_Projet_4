@@ -1,12 +1,19 @@
 """Reports management"""
 from views.report_view import ReportView
 from controllers.menu_controller import MainLoop
+from controllers.player_controller import PlayerController
+from views.tournament_view import TournamentView
+from controllers.tournament_controller import TournamentController
 
 class ReportManagement:
     def __init__(self, active=True):
         self.report_view = ReportView()
         self.main_loop = MainLoop()
         self.active = active
+        self.player_controller = PlayerController()
+        self.tournament_view = TournamentView()
+        self.tournament_controller = TournamentController()
+
 
     def choose_a_report(self):
         """Run the reports options"""
@@ -29,19 +36,31 @@ class ReportManagement:
                 print("invalid option")
 
     def print_all_players_list_by_alpha_order(self):
-        pass
+        all_players = self.player_controller.players
+        sorted_all_players = sorted(all_players, key=lambda p: p.name, reverse=True) # le mettre dans Tools ? sorted_by_element "name" or "ranking"
+        self.report_view.print_element_report(sorted_all_players)
 
     def print_all_players_list_by_ranking(self):
-        pass
+        all_players = self.player_controller.players
+        sorted_all_players = sorted(all_players, key=lambda p: p.ranking, reverse=True)
+        self.report_view.print_element_report(sorted_all_players)
 
     def print_tournament_players_list_by_alpha_order(self):
-        pass
+        pick_tournament = self.tournament_view.pick_up_tournament
+        tournament_players = pick_tournament.players
+        sorted_tournament_players = sorted(tournament_players, key=lambda p: p.name, reverse=True)
+        self.report_view.print_element_report(sorted_tournament_players)
 
     def print_tournament_players_list_by_ranking(self):
-        pass
+        pick_tournament = self.tournament_view.pick_up_tournament
+        tournament_players = pick_tournament.players
+        sorted_tournament_players = sorted(tournament_players, key=lambda p: p.ranking, reverse=True)
+        self.report_view.print_element_report(sorted_tournament_players)
 
     def print_all_tournaments_list(self):
-        pass
+        all_tournament = self.tournament_controller.tournaments_list
+        sorted_all_tournament = sorted(all_tournament, key=lambda p: p.name, reverse=True)
+        self.report_view.print_element_report(sorted_all_tournament)
 
     def print_all_rounds_tournament_list(self):
         pass
