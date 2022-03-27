@@ -19,7 +19,7 @@ class MainLoop:
         self.active = active
         self.player_controller = PlayerController()
         self.tournament_controller = TournamentController(self.player_controller.players)
-        self.report_management = ReportManagement(self)
+        self.report_management = ReportManagement(self.player_controller, self.tournament_controller)
 
 
     def run(self):
