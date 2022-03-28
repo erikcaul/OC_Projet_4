@@ -12,7 +12,7 @@ class Tools:
         try:
             datetime.strptime(date_string, format)
             return True
-            
+
         except:
             print("This is the incorrect date string format. It should be DDMMYYYY")
             return False
@@ -38,7 +38,7 @@ class Tools:
         menu_instance = {}
         i = 1
         for element in list:
-                menu_instance[str(i)] = element.name 
+                menu_instance[str(i)] = element.name
                 print(str(i) + '. ' + element.name)
                 i += 1
         return menu_instance
@@ -46,8 +46,10 @@ class Tools:
     def validate_menu_choice(self, choice, menu, list):
         try:
             if choice in menu:
-                number_in_list = int(choice) - 1 
+                number_in_list = int(choice) - 1
                 pick_up_element = list[number_in_list]
                 return pick_up_element
         except:
-            print("invalid option")  
+            print("invalid option")
+
+    
