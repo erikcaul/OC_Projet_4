@@ -88,24 +88,28 @@ class TournamentController:
             players_points_dict = tournament.players_points
             sorted_players_points_dict = sorted(players_points_dict.items(), key=lambda item: (item[1], item[0].ranking))
             sorted_players_list = map(lambda item: item[0], sorted_players_points_dict)
+            sorted_players_list = list(sorted_players_list)
             # Create a Game object and add it to a list
             games_list = []
-
-            while len(sorted_players_list) > 0:
-                play1 = sorted_players_list[0]
-                already_players_played_list = self.already_players_played_list(play1)
-                list_rest_players = sorted_players_list - already_players_played_list - [play1]
-                if len(list_rest_players) != 0: # gérer l'exception quand list_rest_players is vide
-                    new_game = Game(
-                        play1,
-                        list_rest_players[0],
-                        datetime.datetime.now()
-                    )
-                    games_list.append(new_game)
-                    sorted_players_list.remove(play1)
-                    sorted_players_list.remove(list_rest_players[0])
-                else:
-                    print("No player left")
+            if len(sorted_players_list) != 0:
+                while len(sorted_players_list) > 0:
+                    play1 = sorted_players_list[0]
+                    already_players_played_list = self.already_players_list(play1)
+                    list_rest_players = set(sorted_players_list) - set(already_players_played_list) - set([play1])
+                    list_rest_players = list(list_rest_players)
+                    if len(list_rest_players) != 0: # gérer l'exception quand list_rest_players is vide
+                        new_game = Game(
+                            play1,
+                            list_rest_players[0],
+                            datetime.datetime.now()
+                        )
+                        games_list.append(new_game)
+                        sorted_players_list.remove(play1)
+                        sorted_players_list.remove(list_rest_players[0])
+                    else:
+                        print("No player left")
+            else: 
+                return
             return games_list
 
 

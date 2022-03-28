@@ -44,36 +44,43 @@ class ReportManagement:
         print("All players list by alphabetical order : \n")
         all_players = self.player_controller.players
         sorted_all_players = sorted(all_players, key=lambda p: p.name) # le mettre dans Tools ? sorted_by_element "name" or "ranking"
-        self.report_view.print_element_report(sorted_all_players)
+        self.report_view.print_players_report(sorted_all_players)
 
     def print_all_players_list_by_ranking(self):
         print("All players list by ranking : \n")
         all_players = self.player_controller.players
         sorted_all_players = sorted(all_players, key=lambda p: p.ranking, reverse=True)
-        self.report_view.print_element_report(sorted_all_players)
+        self.report_view.print_players_report(sorted_all_players)
 
     def print_tournament_players_list_by_alpha_order(self):
-        print("Tournament players list by alphabetical order : \n")
         pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
         tournament_players = pick_tournament.players
         sorted_tournament_players = sorted(tournament_players, key=lambda p: p.name)
-        self.report_view.print_element_report(sorted_tournament_players)
+        print("Tournament players list by alphabetical order : \n")
+        self.report_view.print_players_report(sorted_tournament_players)
 
     def print_tournament_players_list_by_ranking(self):
-        print("Tournament players list by ranking : \n")
         pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
         tournament_players = pick_tournament.players
         sorted_tournament_players = sorted(tournament_players, key=lambda p: p.ranking, reverse=True)
-        self.report_view.print_element_report(sorted_tournament_players)
+        print("Tournament players list by ranking : \n")
+        self.report_view.print_players_report(sorted_tournament_players)
 
     def print_all_tournaments_list(self):
         # all_tournament = self.tournament_controller.tournaments_list
         sorted_all_tournament = sorted(self.tournaments_list, key=lambda p: p.name)
-        self.report_view.print_element_report(sorted_all_tournament)
+        print("List of all the tournaments : \n")
+        self.report_view.print_tournament_report(sorted_all_tournament)
 
     def print_all_rounds_tournament_list(self):
-        pass
+        pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
+        print("Tournament rounds list : \n")
+        self.report_view.print_rounds_report(pick_tournament.rounds)
 
     def print_all_games_tournament_list(self):
-        pass
+        pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
+        print("Tournament games list : \n")
+        for round in pick_tournament.rounds:
+            print(round.round_name)
+            self.report_view.print_games_report(round.games)
 
