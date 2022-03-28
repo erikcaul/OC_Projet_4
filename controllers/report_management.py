@@ -43,7 +43,7 @@ class ReportManagement:
     def print_all_players_list_by_alpha_order(self):
         print("All players list by alphabetical order : \n")
         all_players = self.player_controller.players
-        sorted_all_players = sorted(all_players, key=lambda p: p.name) # le mettre dans Tools ? sorted_by_element "name" or "ranking"
+        sorted_all_players = sorted(all_players, key=lambda p: p.name) 
         self.report_view.print_players_report(sorted_all_players)
 
     def print_all_players_list_by_ranking(self):
@@ -67,7 +67,6 @@ class ReportManagement:
         self.report_view.print_players_report(sorted_tournament_players)
 
     def print_all_tournaments_list(self):
-        # all_tournament = self.tournament_controller.tournaments_list
         sorted_all_tournament = sorted(self.tournaments_list, key=lambda p: p.name)
         print("List of all the tournaments : \n")
         self.report_view.print_tournament_report(sorted_all_tournament)
