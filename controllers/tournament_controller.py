@@ -141,11 +141,11 @@ class TournamentController:
         # Validate Round exists
         if len(pick_tournament.rounds) > 0:
             # Select last Round
-            actuel_round = pick_tournament.rounds[-1]
+            current_round = pick_tournament.rounds[-1]
             # Prompt view for scores completion
             # self:tournament_view.prompt_game_result(actuel_round.games)
             # boucle sur les games
-            for game in actuel_round.games:
+            for game in current_round.games:
                 # pick_up_player for the winner
                 game_result = self.tournament_view.prompt_games_results(game)
                 if game_result == '1':
@@ -167,6 +167,7 @@ class TournamentController:
                 else:
                     print("Incorrect answer")
             print(pick_tournament.players_points)
+            current_round.end_date = datetime.datetime.now()
         else:
             print("No round in the tournament existed")
         # update players classement in the tournament
