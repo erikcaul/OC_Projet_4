@@ -8,4 +8,11 @@ class Player:
         self.sexe = sexe
         self.ranking = ranking # nombre de points
 
-    
+    def serialize_player(self, player):
+        player_dict = {}
+        player_dict["Player family name"] = player.name
+        player_dict["Player first name"] = player.first_name
+        player_dict["Player birth date"] = player.birth_date     
+        player_dict["Player sexe"] = player.sexe
+        player_dict["Player ranking"] = player.ranking    
+        return player_dict
