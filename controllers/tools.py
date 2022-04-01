@@ -1,10 +1,12 @@
 from datetime import datetime
+from tinydb import TinyDB, Query
+
 
 """tools module"""
 
 class Tools:
     def __init__(self):
-        pass
+        self.db = self.create_db()
 
 
     def validate_date(self, date_string):
@@ -52,4 +54,6 @@ class Tools:
         except:
             print("invalid option")
 
-    
+    def create_db(self):
+        db = TinyDB('db.json')
+        return db

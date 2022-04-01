@@ -35,6 +35,7 @@ class TournamentController:
             new_tournement_info["description"]
             )
         self.tournaments_list.append(new_tournament)
+        new_tournament.save_tournament(new_tournament)
 
     def add_player(self):
         pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
@@ -46,11 +47,10 @@ class TournamentController:
         pick_player = self.tournament_view.pick_up_player(self.players_all, pick_tournament.players)
         pick_tournament.players.append(pick_player)
         pick_tournament.players_points[pick_player] = 0
-        # print(pick_tournament.players)
-        pick_tournament_dict = pick_tournament.serialize_tournament(pick_tournament)
+        pick_tournament_dict = pick_tournament.dict_tournament(pick_tournament)
         print("Tournament players : ")
         print(pick_tournament_dict["Tournament players"])
-
+        
     def already_players_list(self, player):
         """List of the players whose have already played with the player"""
         already_players_played_list = []
@@ -169,7 +169,7 @@ class TournamentController:
                 else:
                     print("Incorrect answer")
             current_round.end_date = datetime.datetime.now()
-            pick_tournament_dict = pick_tournament.serialize_tournament(pick_tournament)
+            pick_tournament_dict = pick_tournament.dict_tournament(pick_tournament)
             print("Tournament players points : ")
             print(pick_tournament_dict["Tournament players points"])
         else:

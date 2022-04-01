@@ -1,3 +1,7 @@
+import json
+import os
+from controllers.tools import Tools
+
 class Player:
     """Patern for a player"""
     def __init__(self, family_name, first_name, birth_date, sexe, ranking):
@@ -7,8 +11,15 @@ class Player:
         self.birth_date = birth_date
         self.sexe = sexe
         self.ranking = ranking # nombre de points
+        self.tools = Tools()
+        self.filename = "\db.json"
+        db_exist = os.path.exists(self.filename)
+        if db_exist != True:
+            self.db = self.tools.create_db()
+        else:
+            self.db = self.tools.db
 
-    def serialize_player(self, player):
+    def dict_player(self, player):
         player_dict = {}
         player_dict["Player family name"] = player.name
         player_dict["Player first name"] = player.first_name
@@ -16,3 +27,10 @@ class Player:
         player_dict["Player sexe"] = player.sexe
         player_dict["Player ranking"] = player.ranking    
         return player_dict
+
+    def save_player(self, player):
+        dict_player = self.dict_player(player)
+        serialize_player = json.loads(json.dumps(dict_player))
+        print(serialize_player)
+        self.db.insert(serialize_player)
+        
