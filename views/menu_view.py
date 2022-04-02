@@ -14,6 +14,8 @@ class MenuView:
               "5. Play a round\n"
               "6. Update players ranking\n"
               "7. Reports\n"
-              "8. Quit\n")
-        choice = input('Enter your choice between 1 and 8 : \n')
+              "8. Save data\n"
+              # "9. Load data saved\n"
+              "9. Quit\n")
+        choice = input('Enter your choice between 1 and 9 : \n')
         return choice

@@ -1,3 +1,4 @@
+import json
 from views.player_view import PlayerView
 from models.player import Player
 
@@ -22,4 +23,6 @@ class PlayerController:
             )
         self.players.append(new_player)
 
-    
+    def save_player(self, player):
+        serialize_player = player.serialize_player(player)
+        return serialize_player

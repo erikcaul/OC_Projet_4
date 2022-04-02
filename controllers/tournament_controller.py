@@ -46,7 +46,9 @@ class TournamentController:
         pick_player = self.tournament_view.pick_up_player(self.players_all, pick_tournament.players)
         pick_tournament.players.append(pick_player)
         pick_tournament.players_points[pick_player] = 0
-        print(pick_tournament.players)
+        pick_tournament_dict = pick_tournament.dict_tournament(pick_tournament)
+        print("Tournament players : ")
+        print(pick_tournament_dict["Tournament players"])
 
     def already_players_list(self, player):
         """List of the players whose have already played with the player"""
@@ -81,7 +83,6 @@ class TournamentController:
                     datetime.datetime.now()
                 )
                 games_list.append(new_game)
-                print(games_list)
             return games_list
         else:
             # N round : Sorting all the players with their points number
@@ -108,7 +109,7 @@ class TournamentController:
                         sorted_players_list.remove(list_rest_players[0])
                     else:
                         print("No player left")
-            else: 
+            else:
                 return
             return games_list
 
@@ -166,12 +167,12 @@ class TournamentController:
                     pick_tournament.players_points[game.player_2] += 0.5
                 else:
                     print("Incorrect answer")
-            print(pick_tournament.players_points)
             current_round.end_date = datetime.datetime.now()
+            pick_tournament_dict = pick_tournament.dict_tournament(pick_tournament)
+            print("Tournament players points : ")
+            print(pick_tournament_dict["Tournament players points"])
         else:
             print("No round in the tournament existed")
-        # update players classement in the tournament
-        # update player_ranking of the Tournament
 
     def update_player_ranking(self):
         # pick_up_player
@@ -181,3 +182,7 @@ class TournamentController:
         new_score = input('Please enter the new score for the player selected :\n')
         pick_up_player.ranking = new_score
         print(pick_up_player.name + " = " + pick_up_player.ranking)
+
+    def save_tournament(self, tournament):
+        serialize_tournament = tournament.serialize_tournament(tournament)
+        return serialize_tournament
