@@ -21,7 +21,7 @@ class Player:
         player_dict["Player ranking"] = player.ranking
         return player_dict
 
-    def serialize_player(self, player):
+    def serialize_player(self, player): 
         dict_player = self.dict_player(player)
         serialize_player = json.loads(json.dumps(dict_player))
         return serialize_player
