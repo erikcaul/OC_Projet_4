@@ -23,11 +23,11 @@ class Tournament:
         else:
             self.db = self.tools.db
 
-    def dict_tournament(self, tournament):
+    def dict_tournament(self, tournament): # print_tournamnet et serialize_tournament séparés
         tournament_dict = {}
         tournament_dict["Tournament name"] = tournament.name
         tournament_dict["Tournament location"] = tournament.location
-        tournament_dict["Tournament date"] = tournament.date
+        tournament_dict["Tournament date"] = str(tournament.date) # vérifier sur web si il n'y a pas mieux
         tournament_dict["Tournament rounds"] = []
         if len(tournament.rounds) != 0:
             for round in tournament.rounds:
@@ -35,8 +35,8 @@ class Tournament:
                 tournament_dict["Tournament rounds"].append(round_dict)
         tournament_dict["Tournament players"] = []
         if len(tournament.players) != 0:
-            for player in tournament.players:
-                player_dict = player.dict_player(player)
+            for player in tournament.players: # ajouter l'index du joueur dans la liste globale - avoir une liste d'index à la place d'une liste de joueur
+                player_dict = player.dict_player(player) # différencier affichage et serialization 
                 tournament_dict["Tournament players"].append(player_dict)
         players_points_dict = tournament.players_points
         players_name_points_dict = {}
@@ -48,7 +48,7 @@ class Tournament:
         tournament_dict["Tournament description"] = tournament.description
         return tournament_dict
 
-    def serialize_tournament(self, tournament):
+    def serialize_tournament(self, tournament): # transformation our base de donnée
         dict_tournament = self.dict_tournament(tournament)
-        serialize_tournament = json.loads(json.dumps(dict_tournament))
+        serialize_tournament = json.loads(json.dumps(dict_tournament)) # pas serializer
         return serialize_tournament

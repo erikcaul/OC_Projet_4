@@ -59,15 +59,17 @@ class MainLoop:
 
     def save_function(self):
         # save function for players
+        players_table = self.db.table('Players')
         players = self.player_controller.players
         for player in players:
             serialize_player = self.player_controller.save_player(player)
-            self.db.insert(serialize_player)
+            players_table.insert(serialize_player)
         # save function for tournaments
+        tournament_table = self.db.table('Tournaments')
         tournaments_list = self.tournament_controller.tournaments_list
         for tournament in tournaments_list:
             serialize_tournament = self.tournament_controller.save_tournament(tournament)
-            self.db.insert(serialize_tournament)
+            tournament_table.insert(serialize_tournament)
 
     def load_function(self):
         pass
