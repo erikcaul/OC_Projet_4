@@ -57,10 +57,11 @@ class TournamentView:
         for player in all_players_list:
             if player not in tournament_players_list:
                 filtered_players_list.append(player)
-        menu_instance = self.tools.print_name_list(filtered_players_list)
-        player_choice = input('Choice the player: ')
-        pick_up_player = self.tools.validate_menu_choice(player_choice, menu_instance, filtered_players_list)
-        return pick_up_player
+        if len(filtered_players_list) != 0:
+            menu_instance = self.tools.print_name_list(filtered_players_list)
+            player_choice = input('Choice the player: ')
+            pick_up_player = self.tools.validate_menu_choice(player_choice, menu_instance, filtered_players_list)
+            return pick_up_player
 
     def prompt_games_results(self, game):
         # add the 2 players in a list

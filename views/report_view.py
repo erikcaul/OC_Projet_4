@@ -20,32 +20,16 @@ class ReportView:
 
     def print_players_report(self, players_list): 
         for player in players_list:
-            player_dict = player.dict_player(player)
-            print(player_dict)
-            print("---------------------------------------------------")
+            player.print_player(player)
     
-    def print_tournament_report(self, tournaments_list): # donner les info principales nom date, type , nombre rounds max, etc.info que je rentre quand fais le tournois
+    def print_tournament_report(self, tournaments_list): 
         for tournament in tournaments_list:
-            tournament_dict = tournament.dict_tournament(tournament)
-            print("Tournament name : " + str(tournament_dict["Tournament name"]))
-            print("Tournament location : " + str(tournament_dict["Tournament location"]))
-            print("Tournament date : " + str(tournament_dict["Tournament date"]))
-            print("Tournament time controller : " + str(tournament_dict["Tournament time controller"]))
-            print("Tournament turns number : " + str(tournament_dict["Tournament turns number"]))
-            print("Tournament description : " + str(tournament_dict["Tournament description"]))
-            print("---------------------------------------------------")
+            tournament.print_tournament(tournament)
     
-    def print_rounds_report(self, rounds_list): # rajouter des séparateurs
+    def print_rounds_report(self, rounds_list): 
         for round in rounds_list:
-            round_dict = round.dict_round(round)
-            print(round_dict)
-            print("---------------------------------------------------")
+            round.print_round(round)
 
-    def print_games_report(self, games_list): # rajouter des séparateurs
-        i = 1
+    def print_games_report(self, games_list): 
         for game in games_list:
-            print("Game " + str(i) + " : ")
-            game_dict = game.dict_game(game)
-            print(game_dict)
-            print("---------------------------------------------------")
-            i += 1
+            game.print_game(game)

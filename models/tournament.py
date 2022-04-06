@@ -23,6 +23,16 @@ class Tournament:
         else:
             self.db = self.tools.db
 
+    def print_tournament(self, tournament):
+        print("---------------------------------------------------")
+        print("Tournament name : " + str(tournament.name))
+        print("Tournament location : " + str(tournament.location))
+        print("Tournament date : " + str(tournament.date))
+        print("Tournament time controller : " + str(tournament.time_controller))
+        print("Tournament turns number : " + str(tournament.turns_number))
+        print("Tournament description : " + str(tournament.description))
+        print("---------------------------------------------------")
+    
     def dict_tournament(self, tournament): # print_tournamnet et serialize_tournament séparés
         tournament_dict = {}
         tournament_dict["Tournament name"] = tournament.name

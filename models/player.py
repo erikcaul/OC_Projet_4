@@ -12,6 +12,15 @@ class Player:
         self.sexe = sexe
         self.ranking = ranking # nombre de points
         
+    def print_player(self, player):
+        print("---------------------------------------------------")
+        print("Player family name : " + str(player.name))
+        print("Player first name : " + str(player.first_name))
+        print("Player birth date : " + str(player.birth_date))
+        print("Player sexe : " + str(player.sexe))
+        print("Player ranking : " + str(player.ranking))
+        print("---------------------------------------------------")
+
     def dict_player(self, player):
         player_dict = {}
         player_dict["Player family name"] = player.name

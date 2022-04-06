@@ -5,7 +5,7 @@ from models.game import Game
 from views.tournament_view import TournamentView
 from models.tournament import Tournament
 from controllers.tools import Tools
-import datetime
+import time
 
 
 class TournamentController:
@@ -43,12 +43,12 @@ class TournamentController:
         if len(pick_tournament.rounds) != 0:
             print('Tournament is beginning...')
             return
-        pick_player = self.tournament_view.pick_up_player(self.players_all, pick_tournament.players)
-        pick_tournament.players.append(pick_player)
-        pick_tournament.players_points[pick_player] = 0
-        pick_tournament_dict = pick_tournament.dict_tournament(pick_tournament)
-        print("Tournament players : ")
-        print(pick_tournament_dict["Tournament players"])
+        if len(pick_tournament.players) < (int(pick_tournament.turns_number)*2):
+            pick_player = self.tournament_view.pick_up_player(self.players_all, pick_tournament.players)
+            pick_tournament.players.append(pick_player)
+            pick_tournament.players_points[pick_player] = 0
+        else: 
+            print("There are enough players in this tournament")
 
     def already_players_list(self, player):
         """List of the players whose have already played with the player"""
@@ -80,7 +80,7 @@ class TournamentController:
                 new_game = Game(
                     list1[i],
                     list2[i],
-                    datetime.datetime.now()
+                    time.asctime()
                 )
                 games_list.append(new_game)
             return games_list
@@ -102,7 +102,7 @@ class TournamentController:
                         new_game = Game(
                             play1,
                             list_rest_players[0],
-                            datetime.datetime.now()
+                            time.asctime()
                         )
                         games_list.append(new_game)
                         sorted_players_list.remove(play1)
@@ -123,7 +123,7 @@ class TournamentController:
             # + vérifier qu'il y a suffisemment de joureurs pour faire tous les tours du tournois
             if tournament_players_count // 2 == tournament_rounds_count:
                 games = self.match_making(pick_tournament)
-                begin_date = datetime.datetime.now()
+                begin_date = time.asctime()
                 tournament_turn_number = len(pick_tournament.rounds) + 1
                 round_name = 'Round' + str(tournament_turn_number)
                 new_round = Round(
@@ -152,22 +152,22 @@ class TournamentController:
                 if game_result == '1':
                     game.player_1_win = True
                     game.player_2_win = False
-                    game.end_date = datetime.datetime.now()
+                    game.end_date = time.asctime()
                     pick_tournament.players_points[game.player_1] += 1
                 elif game_result == '2':
                     game.player_1_win = False
                     game.player_2_win = True
-                    game.end_date = datetime.datetime.now()
+                    game.end_date = time.asctime()
                     pick_tournament.players_points[game.player_2] += 1
                 elif game_result == '0':
                     game.player_1_win = False
                     game.player_2_win = False
-                    game.end_date = datetime.datetime.now()
+                    game.end_date = time.asctime()
                     pick_tournament.players_points[game.player_1] += 0.5
                     pick_tournament.players_points[game.player_2] += 0.5
                 else:
                     print("Incorrect answer")
-            current_round.end_date = datetime.datetime.now()
+            current_round.end_date = time.asctime()
             pick_tournament_dict = pick_tournament.dict_tournament(pick_tournament)
             print("Tournament players points : ")
             print(pick_tournament_dict["Tournament players points"])
