@@ -1,4 +1,4 @@
-import time
+# import time
 
 class Round:
     """Patern for a round"""
@@ -9,26 +9,29 @@ class Round:
         self.begin_date = begin_date
         self.end_date = None
 
-    def print_round(self, round):
+    def print_round(self): # à mettre dans report_view
         print("---------------------------------------------------")
-        print("Round name : " + str(round.round_name))
-        print("Round games : ")
+        print("---------------------------------------------------")
+        print("---Round name : " + str(self.round_name))
+        print("---Round games : ")
         i = 1
-        for game in round.games:
-            print("Game " + str(i) + " : ")
-            game.print_game(game)
+        for game in self.games:
+            print("   ---Game " + str(i) + " : ")
+            game.print_game()
             i += 1
-        print("Round begin date : " + str(self.begin_date))
-        print("Round end date : " + str(self.end_date))
+        print("---Round begin date : " + str(self.begin_date))
+        print("---Round end date : " + str(self.end_date))
         print("---------------------------------------------------")
-    
-    def dict_round(self, round):
-        round_dict = {}
-        round_dict["Round name"] = round.round_name
-        round_dict["Round games"] = []
-        for game in round.games:
-            game_dict = game.dict_game(game)
-            round_dict["Round games"].append(game_dict)
-        round_dict["Begin date"] = game.begin_date
-        round_dict["End date"] = game.end_date  
-        return round_dict
+        print("---------------------------------------------------")
+
+    def serialize(self):
+        games_list = []
+        for game in self.games:
+            game_serialize = game.serialize()
+            games_list.append(game_serialize)
+        return {
+            "round_name": self.round_name,
+            "games": games_list,
+            "begin_date": self.begin_date,
+            "end_date": self.end_date
+        }

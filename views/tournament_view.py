@@ -19,7 +19,7 @@ class TournamentView:
             "date": 'Enter the date of the tournament with DDMMYYYY format: ',
             "turns_number": 'Enter the number of turns for the tournament : ',
             "time_controller": 'Please select the type for the time controlling (bullet, blitz, quick hit) : ',
-            "description": 'Please enter a description for the tournament: '
+            "description": 'Please enter a description for the tournament: ',
         }
 
         tournament_info = {}

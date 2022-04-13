@@ -54,7 +54,6 @@ class MainLoop:
                 menu[choice]()
             else:
                 print("invalid option")
-
         print("Thanks and have a good day!")
 
     def save_function(self):
@@ -62,13 +61,13 @@ class MainLoop:
         players_table = self.db.table('Players')
         players = self.player_controller.players
         for player in players:
-            serialize_player = self.player_controller.save_player(player)
+            serialize_player = player.serialize()
             players_table.insert(serialize_player)
         # save function for tournaments
         tournament_table = self.db.table('Tournaments')
         tournaments_list = self.tournament_controller.tournaments_list
         for tournament in tournaments_list:
-            serialize_tournament = self.tournament_controller.save_tournament(tournament)
+            serialize_tournament = tournament.serialize(self.tournament_controller.players_all)
             tournament_table.insert(serialize_tournament)
 
     def load_function(self):

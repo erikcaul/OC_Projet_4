@@ -23,42 +23,39 @@ class Tournament:
         else:
             self.db = self.tools.db
 
-    def print_tournament(self, tournament):
+    def print_tournament(self): # à mettre dans report_view
         print("---------------------------------------------------")
-        print("Tournament name : " + str(tournament.name))
-        print("Tournament location : " + str(tournament.location))
-        print("Tournament date : " + str(tournament.date))
-        print("Tournament time controller : " + str(tournament.time_controller))
-        print("Tournament turns number : " + str(tournament.turns_number))
-        print("Tournament description : " + str(tournament.description))
+        print("Tournament name : " + str(self.name))
+        print("Tournament location : " + str(self.location))
+        print("Tournament date : " + str(self.date))
+        print("Tournament time controller : " + str(self.time_controller))
+        print("Tournament turns number : " + str(self.turns_number))
+        print("Tournament description : " + str(self.description))
         print("---------------------------------------------------")
     
-    def dict_tournament(self, tournament): # print_tournamnet et serialize_tournament séparés
-        tournament_dict = {}
-        tournament_dict["Tournament name"] = tournament.name
-        tournament_dict["Tournament location"] = tournament.location
-        tournament_dict["Tournament date"] = str(tournament.date) # vérifier sur web si il n'y a pas mieux
-        tournament_dict["Tournament rounds"] = []
-        if len(tournament.rounds) != 0:
-            for round in tournament.rounds:
-                round_dict = round.dict_round(round)
-                tournament_dict["Tournament rounds"].append(round_dict)
-        tournament_dict["Tournament players"] = []
-        if len(tournament.players) != 0:
-            for player in tournament.players: # ajouter l'index du joueur dans la liste globale - avoir une liste d'index à la place d'une liste de joueur
-                player_dict = player.dict_player(player) # différencier affichage et serialization 
-                tournament_dict["Tournament players"].append(player_dict)
-        players_points_dict = tournament.players_points
-        players_name_points_dict = {}
-        for key, value in players_points_dict.items():
-            players_name_points_dict[key.name] = value
-        tournament_dict["Tournament players points"] = players_name_points_dict
-        tournament_dict["Tournament time controller"] = tournament.time_controller
-        tournament_dict["Tournament turns number"] = tournament.turns_number
-        tournament_dict["Tournament description"] = tournament.description
-        return tournament_dict
-
-    def serialize_tournament(self, tournament): # transformation our base de donnée
-        dict_tournament = self.dict_tournament(tournament)
-        serialize_tournament = json.loads(json.dumps(dict_tournament)) # pas serializer
-        return serialize_tournament
+    def serialize(self, all_players_list):
+            rounds_list = []
+            for round in self.rounds: # liste avec les élément de mes round que j'ajouterais ensuite à mon tournois = une liste de dict
+                round_info = round.serialize()
+                rounds_list.append(round_info)
+            players_list = []
+            for player_globale_list in all_players_list:
+                for player_tournament_list in self.players:
+                    if player_tournament_list == player_globale_list:
+                        index_list = all_players_list.index(player_globale_list)
+                        players_list.append(index_list)
+            players_points_dict = self.players_points
+            players_name_points_dict = {}
+            for key, value in players_points_dict.items():
+                players_name_points_dict[key.name] = value
+            return {
+                "name": self.name,
+                "location": self.location,
+                "date": self.date,
+                "rounds": rounds_list,
+                "players": players_list, 
+                "players_points": players_name_points_dict, 
+                "time_controller": self.time_controller,
+                "turns_number": self.turns_number,
+                "description": self.description
+            }

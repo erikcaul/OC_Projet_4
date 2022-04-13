@@ -143,9 +143,6 @@ class TournamentController:
         if len(pick_tournament.rounds) > 0:
             # Select last Round
             current_round = pick_tournament.rounds[-1]
-            # Prompt view for scores completion
-            # self:tournament_view.prompt_game_result(actuel_round.games)
-            # boucle sur les games
             for game in current_round.games:
                 # pick_up_player for the winner
                 game_result = self.tournament_view.prompt_games_results(game)
@@ -168,9 +165,11 @@ class TournamentController:
                 else:
                     print("Incorrect answer")
             current_round.end_date = time.asctime()
-            pick_tournament_dict = pick_tournament.dict_tournament(pick_tournament)
             print("Tournament players points : ")
-            print(pick_tournament_dict["Tournament players points"])
+            players_points_dict = pick_tournament.players_points
+            players_name_points_dict = {}
+            for key, value in players_points_dict.items():
+                players_name_points_dict[key.name] = value
         else:
             print("No round in the tournament existed")
 
@@ -183,6 +182,11 @@ class TournamentController:
         pick_up_player.ranking = new_score
         print(pick_up_player.name + " = " + pick_up_player.ranking)
 
-    def save_tournament(self, tournament):
-        serialize_tournament = tournament.serialize_tournament(tournament)
-        return serialize_tournament
+    def serialize_players_list(self, tournament):
+        serialize_players_list = []
+        for player_globale_list in self.players_all:
+            for player_tournament_list in tournament.players:
+                if player_tournament_list == player_globale_list:
+                    index_list = self.players_all.index(player_globale_list)
+                    serialize_players_list.append(index_list)
+        return serialize_players_list
