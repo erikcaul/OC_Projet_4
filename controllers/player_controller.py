@@ -1,3 +1,4 @@
+import json
 from views.player_view import PlayerView
 from models.player import Player
 
@@ -21,5 +22,3 @@ class PlayerController:
             new_player_info["ranking"],
             )
         self.players.append(new_player)
-
-    

@@ -6,6 +6,8 @@ class MenuView:
 
     def prompt_menu_choice(self):
         """Prompt for a choice"""
+        print("---------------------------------------------------")
+        print("---------------------------------------------------")
         print("Choose an option : \n"
               "1. Create a tournament\n"
               "2. Create a player\n"
@@ -14,6 +16,9 @@ class MenuView:
               "5. Play a round\n"
               "6. Update players ranking\n"
               "7. Reports\n"
-              "8. Quit\n")
-        choice = input('Enter your choice between 1 and 8 : \n')
+              "8. Save data\n"
+              # "9. Load data saved\n"
+              "9. Quit\n")
+        print("---------------------------------------------------")
+        choice = input('Enter your choice between 1 and 9 : \n')
         return choice
