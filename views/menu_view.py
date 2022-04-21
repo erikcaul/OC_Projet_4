@@ -17,8 +17,8 @@ class MenuView:
               "6. Update players ranking\n"
               "7. Reports\n"
               "8. Save data\n"
-              # "9. Load data saved\n"
-              "9. Quit\n")
+              "9. Load data saved\n"
+              "10. Quit\n")
         print("---------------------------------------------------")
-        choice = input('Enter your choice between 1 and 9 : \n')
+        choice = input('Enter your choice between 1 and 10 : \n')
         return choice

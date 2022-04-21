@@ -1,5 +1,5 @@
 """Report view"""
-
+import json
 
 class ReportView:
     
@@ -31,7 +31,9 @@ class ReportView:
     
     def print_rounds_report(self, rounds_list): 
         for round in rounds_list:
-            round.print_round()
+            print(round)
+            round_d = json.load(round)
+            round_d.print_round()
 
     def print_games_report(self, games_list): 
         for game in games_list:
