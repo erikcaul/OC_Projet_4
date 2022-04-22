@@ -190,3 +190,46 @@ class TournamentController:
                     index_list = self.players_all.index(player_globale_list)
                     serialize_players_list.append(index_list)
         return serialize_players_list
+
+    def load_tournament_from_bd(self, load_tournament_info):
+        tournament_players_list = []
+        for index in load_tournament_info["players"]: 
+                tournament_players_list.append(self.players_all[index])
+        rounds_list = []
+        for round in load_tournament_info["rounds"]:
+                load_round = self.tournament_controller.round_into_object(round)
+                rounds_list.append(load_round)
+        # tournament_players_list = []
+        # for index in load_tournament_info["players"]: 
+        #         tournament_players_list.append(self.players_all[index])
+        new_tournament = Tournament(
+            load_tournament_info["name"],
+            load_tournament_info["location"],
+            load_tournament_info["date"],
+            rounds_list,        
+            tournament_players_list,   
+            load_tournament_info["players_points"], # ressorte de l'index et mette objet player
+            load_tournament_info["time_controller"],
+            load_tournament_info["turns_number"],
+            load_tournament_info["description"]
+            )
+        self.tournaments_list.append(new_tournament)
+
+    def round_into_object(self, round):
+        games_list = []
+        game = Game(
+                self.players_all[game["player_1"]],
+                self.players_all[game["player_2"]],
+                game["player_1_win"],
+                game["player_2_win"],
+                game["begin_date"],
+                game["end_date"]
+            )
+        games_list.append(game)
+        load_round = Round(
+            round["round_name"],
+            games_list,
+            round["begin_date"],
+            round["end_date"]
+        )
+        return load_round

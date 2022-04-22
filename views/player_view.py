@@ -14,7 +14,7 @@ class PlayerView:
         """prompt info for the creation of a player"""
         # faire un dict plutôt qu'une liste avec initialisation à vide
         player_dict = {
-            "family_name": 'Enter the player family name : ',
+            "name": 'Enter the player family name : ',
             "first_name": 'Enter the player first name : ',
             "birth_date": 'Enter the birth date of the player with DDMMYYYY format: ',
             "sexe": 'Please select the sexe of the player (male, female, not binary) : ',

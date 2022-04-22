@@ -34,28 +34,27 @@ class Tournament:
         print("---------------------------------------------------")
     
     def serialize(self, all_players_list):
-            rounds_list = []
-            for round in self.rounds: # liste avec les élément de mes round que j'ajouterais ensuite à mon tournois = une liste de dict
-                round_info = round.serialize()
-                rounds_list.append(round_info)
-            players_list = []
-            for player_globale_list in all_players_list:
-                for player_tournament_list in self.players:
-                    if player_tournament_list == player_globale_list:
-                        index_list = all_players_list.index(player_globale_list)
-                        players_list.append(index_list)
-            players_points_dict = self.players_points
-            players_name_points_dict = {}
-            for key, value in players_points_dict.items():
-                players_name_points_dict[key.name] = value
-            return {
-                "name": self.name,
-                "location": self.location,
-                "date": self.date,
-                "rounds": rounds_list,
-                "players": players_list, 
-                "players_points": players_name_points_dict, 
-                "time_controller": self.time_controller,
-                "turns_number": self.turns_number,
-                "description": self.description
-            }
+        rounds_list = []
+        for round in self.rounds: # liste avec les élément de mes round que j'ajouterais ensuite à mon tournois = une liste de dict
+            round_info = round.serialize(all_players_list)
+            rounds_list.append(round_info)
+        players_index_list = []
+        for tournament_player in self.players:
+            player_index = all_players_list.index(tournament_player)
+            players_index_list.append(player_index)
+        players_points_dict = self.players_points
+        players_name_points_dict = {}
+        for player, points in players_points_dict.items():
+            player_index = all_players_list.index(player)
+            players_name_points_dict[player_index] = points
+        return {
+            "name": self.name,
+            "location": self.location,
+            "date": self.date,
+            "rounds": rounds_list,
+            "players": players_index_list, 
+            "players_points": players_name_points_dict, 
+            "time_controller": self.time_controller,
+            "turns_number": self.turns_number,
+            "description": self.description
+        }

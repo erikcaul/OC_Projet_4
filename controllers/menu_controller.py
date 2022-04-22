@@ -5,8 +5,9 @@ from controllers.player_controller import PlayerController
 from controllers.tournament_controller import TournamentController
 from controllers.report_management import ReportManagement
 from controllers.tools import Tools
-# from tinydb import TinyDB, Query
+from tinydb import TinyDB, Query, where
 import os
+import json
 
 
 """Un contrôleur qui va faire main loop (choix option),
@@ -30,6 +31,9 @@ class MainLoop:
             self.db = self.tools.create_db()
         else:
             self.db = self.filename
+        self.players_table = self.db.table('Players')
+        self.tournaments_table = self.db.table('Tournaments')
+
 
     def run(self):
         """Run the menu option"""
@@ -44,8 +48,8 @@ class MainLoop:
             "6": self.tournament_controller.update_player_ranking,
             "7": self.report_management.choose_a_report,
             "8": self.save_function,
-            # "9": self.load_function
-            "9": self.stop_game
+            "9": self.load_function,
+            "10": self.stop_game
         }
 
         while self.active:
@@ -57,21 +61,29 @@ class MainLoop:
         print("Thanks and have a good day!")
 
     def save_function(self):
+        # vide ma bd = truncate
+        self.players_table.truncate()
+        self.tournaments_table.truncate()
         # save function for players
-        players_table = self.db.table('Players')
         players = self.player_controller.players
         for player in players:
             serialize_player = player.serialize()
-            players_table.insert(serialize_player)
+            self.players_table.insert(serialize_player)
         # save function for tournaments
-        tournament_table = self.db.table('Tournaments')
         tournaments_list = self.tournament_controller.tournaments_list
         for tournament in tournaments_list:
             serialize_tournament = tournament.serialize(self.tournament_controller.players_all)
-            tournament_table.insert(serialize_tournament)
+            self.tournaments_table.insert(serialize_tournament)
 
     def load_function(self):
-        pass
+        # Build-on the Players List with the Players table
+        players_list = self.players_table.all()
+        for player in players_list:
+            self.player_controller.load_player_from_bd(player)
+        # Build-on the Tournaments List with the Tournaments table
+        tournaments_list = self.tournaments_table.all()
+        for tournament in tournaments_list:
+            self.tournament_controller.load_tournament_from_bd(tournament)
 
     def stop_game(self):
         self.active = False
