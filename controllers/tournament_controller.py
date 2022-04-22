@@ -47,7 +47,7 @@ class TournamentController:
             pick_player = self.tournament_view.pick_up_player(self.players_all, pick_tournament.players)
             pick_tournament.players.append(pick_player)
             pick_tournament.players_points[pick_player] = 0
-        else: 
+        else:
             print("There are enough players in this tournament")
 
     def already_players_list(self, player):
@@ -193,21 +193,24 @@ class TournamentController:
 
     def load_tournament_from_bd(self, load_tournament_info):
         tournament_players_list = []
-        for index in load_tournament_info["players"]: 
+        for index in load_tournament_info["players"]:
                 tournament_players_list.append(self.players_all[index])
         rounds_list = []
         for round in load_tournament_info["rounds"]:
-                load_round = self.tournament_controller.round_into_object(round)
+                load_round = self.round_into_object(round)
                 rounds_list.append(load_round)
+        tournament_players_points = {}
+        for index, points in load_tournament_info["players_points"].items():
+            tournament_players_points[self.players_all[int(index)]] = points
         # tournament_players_list = []
-        # for index in load_tournament_info["players"]: 
+        # for index in load_tournament_info["players"]:
         #         tournament_players_list.append(self.players_all[index])
         new_tournament = Tournament(
             load_tournament_info["name"],
             load_tournament_info["location"],
             load_tournament_info["date"],
-            rounds_list,        
-            tournament_players_list,   
+            rounds_list,
+            tournament_players_list,
             load_tournament_info["players_points"], # ressorte de l'index et mette objet player
             load_tournament_info["time_controller"],
             load_tournament_info["turns_number"],
@@ -217,7 +220,14 @@ class TournamentController:
 
     def round_into_object(self, round):
         games_list = []
-        game = Game(
+        load_round = Round(
+            round["round_name"],
+            round["games"],
+            round["begin_date"],
+            round["end_date"]
+        )
+        for game in load_round.games:
+            game = Game(
                 self.players_all[game["player_1"]],
                 self.players_all[game["player_2"]],
                 game["player_1_win"],
@@ -226,10 +236,5 @@ class TournamentController:
                 game["end_date"]
             )
         games_list.append(game)
-        load_round = Round(
-            round["round_name"],
-            games_list,
-            round["begin_date"],
-            round["end_date"]
-        )
+        load_round.games = games_list
         return load_round

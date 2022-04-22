@@ -1,10 +1,12 @@
 
 """Tournament view"""
 from controllers.tools import Tools
+from views.player_view import PlayerView
 
 
 class TournamentView:
     def __init__(self):
+        self.player_view = PlayerView()
         self.tools = Tools()
         self.time_controller_list = ['bullet',
             'blitz',
@@ -71,3 +73,40 @@ class TournamentView:
         self.tools.print_name_list(game_players_list)
         winner = input('Please enter the number of the winner (0 if none) : \n')
         return winner
+
+    def print_tournament(self, tournament):
+        print("---------------------------------------------------")
+        print("Tournament name : " + str(tournament.name))
+        print("Tournament location : " + str(tournament.location))
+        print("Tournament date : " + str(tournament.date))
+        print("Tournament time controller : " + str(tournament.time_controller))
+        print("Tournament turns number : " + str(tournament.turns_number))
+        print("Tournament description : " + str(tournament.description))
+        print("---------------------------------------------------")
+
+    def print_round(self, round):
+        print("---------------------------------------------------")
+        print("---------------------------------------------------")
+        print("---Round name : " + str(round.round_name))
+        print("---Round games : ")
+        i = 1
+        for game in round.games:
+            print("   ---Game " + str(i) + " : ")
+            self.print_game(game)
+            i += 1
+        print("---Round begin date : " + str(round.begin_date))
+        print("---Round end date : " + str(round.end_date))
+        print("---------------------------------------------------")
+        print("---------------------------------------------------")
+
+    def print_game(self, game):
+        print("---------------------------------------------------")
+        print("------Player 1 : ")
+        self.player_view.print_player(game.player_1)
+        print("------Player 2 : ")
+        self.player_view.print_player(game.player_2)
+        print("   ------Player 1 win ? : " + str(game.player_1_win))
+        print("   ------Player 2 win ? : " + str(game.player_2_win))
+        print("   ------Game begin date : " + str(game.begin_date))
+        print("   ------Game end date : " + str(game.end_date))
+        print("---------------------------------------------------")

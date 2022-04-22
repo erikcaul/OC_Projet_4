@@ -8,15 +8,6 @@ class Player:
         self.sexe = sexe
         self.ranking = ranking # nombre de points
         
-    def print_player(self): # à mettre dans report_view
-        print("---------------------------------------------------")
-        print("---Player family name : " + str(self.name))
-        print("---Player first name : " + str(self.first_name))
-        print("---Player birth date : " + str(self.birth_date))
-        print("---Player sexe : " + str(self.sexe))
-        print("---Player ranking : " + str(self.ranking))
-        print("---------------------------------------------------")
-
     def serialize(self):
         return {
             "name": self.name,

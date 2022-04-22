@@ -1,8 +1,16 @@
 """Report view"""
 import json
+from views.player_view import PlayerView
+from views.tournament_view import TournamentView
+
+
 
 class ReportView:
-    
+    def __init__(self):
+        self.player_view = PlayerView()
+        self.tournament_view = TournamentView()
+
+
     def prompt_report_choice(self):
         """ Prompt for a report to choice"""
         print("---------------------------------------------------")
@@ -21,20 +29,19 @@ class ReportView:
         return choice
 
 
-    def print_players_report(self, players_list): 
+    def print_players_report(self, players_list):
         for player in players_list:
-            player.print_player()
-    
-    def print_tournament_report(self, tournaments_list): 
-        for tournament in tournaments_list:
-            tournament.print_tournament()
-    
-    def print_rounds_report(self, rounds_list): 
-        for round in rounds_list:
-            print(round)
-            round_d = json.load(round)
-            round_d.print_round()
+            self.player_view.print_player(player)
 
-    def print_games_report(self, games_list): 
+    def print_tournament_report(self, tournaments_list):
+        for tournament in tournaments_list:
+            self.tournament_view.print_tournament(tournament)
+
+    def print_rounds_report(self, rounds_list):
+        for round in rounds_list:
+            # round_d = json.load(round)
+            self.tournament_view.print_round(round)
+
+    def print_games_report(self, games_list):
         for game in games_list:
-            game.print_game()
+            self.tournament_view.print_game(game)

@@ -9,18 +9,6 @@ class Game:
         self.begin_date = begin_date
         self.end_date = end_date
 
-    def print_game(self): # à mettre dans report_view
-        print("---------------------------------------------------")
-        print("------Player 1 : ") 
-        self.player_1.print_player()
-        print("------Player 2 : ")
-        self.player_2.print_player()
-        print("   ------Player 1 win ? : " + str(self.player_1_win))
-        print("   ------Player 2 win ? : " + str(self.player_2_win))
-        print("   ------Game begin date : " + str(self.begin_date))
-        print("   ------Game end date : " + str(self.end_date))
-        print("---------------------------------------------------")
-
     def serialize(self, all_players_list):
         return {
             "player_1": all_players_list.index(self.player_1),

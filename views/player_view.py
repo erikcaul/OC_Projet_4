@@ -8,7 +8,7 @@ class PlayerView:
         self.tools = Tools()
         self.sexe_list = ['female',
             'male',
-            'not saying'] 
+            'not saying']
 
     def prompt_player_creation(self):
         """prompt info for the creation of a player"""
@@ -20,9 +20,9 @@ class PlayerView:
             "sexe": 'Please select the sexe of the player (male, female, not binary) : ',
             "ranking": 'Please enter the player ranking : '
             }
-        
+
         player_info = {}
-        for key, value in player_dict.items(): 
+        for key, value in player_dict.items():
             user_input = None
             while user_input == "" or user_input == None:
                 user_input = input(value)
@@ -32,13 +32,20 @@ class PlayerView:
                     user_input = input(value)
                     player_info[key] = user_input
             if key == 'ranking':
-                while not self.tools.validate_number(user_input): 
+                while not self.tools.validate_number(user_input):
                     user_input = input(value)
                     player_info[key] = user_input
             if key == 'sexe':
                 while not self.tools.validate_list(user_input, self.sexe_list):
                     user_input = input(value)
-                    player_info[key] = user_input        
+                    player_info[key] = user_input
         return player_info
 
-    
+    def print_player(self, player):
+        print("---------------------------------------------------")
+        print("---Player family name : " + str(player.name))
+        print("---Player first name : " + str(player.first_name))
+        print("---Player birth date : " + str(player.birth_date))
+        print("---Player sexe : " + str(player.sexe))
+        print("---Player ranking : " + str(player.ranking))
+        print("---------------------------------------------------")

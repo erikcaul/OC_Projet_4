@@ -23,16 +23,6 @@ class Tournament:
         else:
             self.db = self.tools.db
 
-    def print_tournament(self): # à mettre dans report_view
-        print("---------------------------------------------------")
-        print("Tournament name : " + str(self.name))
-        print("Tournament location : " + str(self.location))
-        print("Tournament date : " + str(self.date))
-        print("Tournament time controller : " + str(self.time_controller))
-        print("Tournament turns number : " + str(self.turns_number))
-        print("Tournament description : " + str(self.description))
-        print("---------------------------------------------------")
-    
     def serialize(self, all_players_list):
         rounds_list = []
         for round in self.rounds: # liste avec les élément de mes round que j'ajouterais ensuite à mon tournois = une liste de dict
@@ -52,8 +42,8 @@ class Tournament:
             "location": self.location,
             "date": self.date,
             "rounds": rounds_list,
-            "players": players_index_list, 
-            "players_points": players_name_points_dict, 
+            "players": players_index_list,
+            "players_points": players_name_points_dict,
             "time_controller": self.time_controller,
             "turns_number": self.turns_number,
             "description": self.description
