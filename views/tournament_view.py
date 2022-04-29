@@ -69,7 +69,6 @@ class TournamentView:
         # add the 2 players in a list
         game_players_list = [game.player_1, game.player_2]
         # pick_up_player for the winner
-        # game_result = self.tournament_view.pick_up_player(self.players_all, game_players_list)
         self.tools.print_name_list(game_players_list)
         winner = input('Please enter the number of the winner (0 if none) : \n')
         return winner

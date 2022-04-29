@@ -230,9 +230,9 @@ class TournamentController:
             game = Game(
                 self.players_all[game["player_1"]],
                 self.players_all[game["player_2"]],
+                game["begin_date"],
                 game["player_1_win"],
                 game["player_2_win"],
-                game["begin_date"],
                 game["end_date"]
             )
         games_list.append(game)
