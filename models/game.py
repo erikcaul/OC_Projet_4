@@ -1,6 +1,13 @@
 class Game:
     """Patern for a game"""
-    def __init__(self, player_1, player_2, begin_date, player_1_win=None, player_2_win=None, end_date=None):
+    def __init__(self,
+                 player_1,
+                 player_2,
+                 begin_date,
+                 player_1_win=None,
+                 player_2_win=None,
+                 end_date=None
+                 ):
         """Initialize a game"""
         self.player_1 = player_1
         self.player_2 = player_2

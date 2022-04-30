@@ -1,4 +1,3 @@
-import json
 from views.player_view import PlayerView
 from models.player import Player
 

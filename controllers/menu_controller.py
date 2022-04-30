@@ -5,40 +5,33 @@ from controllers.player_controller import PlayerController
 from controllers.tournament_controller import TournamentController
 from controllers.report_management import ReportManagement
 from controllers.tools import Tools
-from tinydb import TinyDB, Query, where
 import os
-import json
-
-
-"""Un contrôleur qui va faire main loop (choix option),
-avant le choix, va appeler la vue "menu" pour afficher les options et ensuite attendre input
-Use an infinite loop to show the menu options.
-Ask the user for the options
-Use if-elif-else to determine what to do according to the user input. """
 
 
 class MainLoop:
+    """Use an infinite loop to show the menu options"""
     def __init__(self, menu_view, active=True):
         self.menu_view = MenuView()
         self.tools = Tools()
         self.active = active
         self.player_controller = PlayerController()
-        self.tournament_controller = TournamentController(self.player_controller.players)
-        self.report_management = ReportManagement(self.player_controller, self.tournament_controller)
-        self.filename = "\db.json"
+        self.tournament_controller = TournamentController(
+                                        self.player_controller.players
+                                        )
+        self.report_management = ReportManagement(self.player_controller,
+                                                  self.tournament_controller
+                                                  )
+        self.filename = r'\db.json'
         db_exist = os.path.exists(self.filename)
-        if db_exist != True:
+        if db_exist is not True:
             self.db = self.tools.create_db()
         else:
             self.db = self.filename
         self.players_table = self.db.table('Players')
         self.tournaments_table = self.db.table('Tournaments')
 
-
     def run(self):
         """Run the menu option"""
-        # utiliser un dict avec en key le numero option à choisir str, et en valeur mettre la ref. fonction
-
         menu = {
             "1": self.tournament_controller.new_tournament,
             "2": self.player_controller.create_player,
@@ -50,7 +43,7 @@ class MainLoop:
             "8": self.save_function,
             "9": self.load_function,
             "10": self.stop_game
-        }
+                }
 
         while self.active:
             choice = self.menu_view.prompt_menu_choice()
@@ -61,7 +54,7 @@ class MainLoop:
         print("Thanks and have a good day!")
 
     def save_function(self):
-        # vide ma bd = truncate
+        # empty tables
         self.players_table.truncate()
         self.tournaments_table.truncate()
         # save function for players
@@ -72,7 +65,9 @@ class MainLoop:
         # save function for tournaments
         tournaments_list = self.tournament_controller.tournaments_list
         for tournament in tournaments_list:
-            serialize_tournament = tournament.serialize(self.tournament_controller.players_all)
+            serialize_tournament = tournament.serialize(
+                self.tournament_controller.players_all
+                )
             self.tournaments_table.insert(serialize_tournament)
 
     def load_function(self):

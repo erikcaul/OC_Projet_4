@@ -6,8 +6,8 @@ class Player:
         self.first_name = first_name
         self.birth_date = birth_date
         self.sexe = sexe
-        self.ranking = ranking # nombre de points
-        
+        self.ranking = ranking
+
     def serialize(self):
         return {
             "name": self.name,

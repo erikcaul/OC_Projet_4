@@ -1,5 +1,3 @@
-# import time
-
 class Round:
     """Patern for a round"""
     def __init__(self, round_name, games, begin_date, end_date=None):

@@ -1,9 +1,7 @@
 """Reports management"""
 from views.report_view import ReportView
-# from controllers.menu_controller import MainLoop
-# from controllers.player_controller import PlayerController
 from views.tournament_view import TournamentView
-# from controllers.tournament_controller import TournamentController
+
 
 class ReportManagement:
     def __init__(self, player_controller, tournament_controller, active=True):
@@ -14,7 +12,6 @@ class ReportManagement:
         self.tournament_view = TournamentView()
         self.tournament_controller = tournament_controller
         self.tournaments_list = self.tournament_controller.tournaments_list
-
 
     def choose_a_report(self):
         """Run the reports options"""

@@ -1,31 +1,41 @@
-import json
 import os
 from controllers.tools import Tools
 
+
 class Tournament:
     """Patern for tournaments"""
-    def __init__(self, name, location, date, rounds, players, players_points, time_controller, turns_number=4, description=""):
+    def __init__(self,
+                 name,
+                 location,
+                 date,
+                 rounds,
+                 players,
+                 players_points,
+                 time_controller,
+                 turns_number=4,
+                 description=""
+                 ):
         """initialize tournament"""
         self.name = name
         self.location = location
         self.date = date
         self.rounds = rounds
         self.players = players
-        self.players_points = players_points # (commence à 0) nombre de point par joueur pour le tournois (dict[instance joueur] = nombre de points)
+        self.players_points = players_points
         self.time_controller = time_controller
         self.turns_number = turns_number
         self.description = description
         self.tools = Tools()
-        self.filename = "\db.json"
+        self.filename = r'\db.json'
         db_exist = os.path.exists(self.filename)
-        if db_exist != True:
+        if db_exist is not True:
             self.db = self.tools.create_db()
         else:
             self.db = self.tools.db
 
     def serialize(self, all_players_list):
         rounds_list = []
-        for round in self.rounds: # liste avec les élément de mes round que j'ajouterais ensuite à mon tournois = une liste de dict
+        for round in self.rounds:
             round_info = round.serialize(all_players_list)
             rounds_list.append(round_info)
         players_index_list = []
