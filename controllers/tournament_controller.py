@@ -1,10 +1,10 @@
 """Tournaments Controller"""
+import time
 from models.round import Round
 from models.game import Game
 from views.tournament_view import TournamentView
 from models.tournament import Tournament
 from controllers.tools import Tools
-import time
 
 
 class TournamentController:
@@ -19,7 +19,7 @@ class TournamentController:
     def new_tournament(self):
         new_tournement_info = self.tournament_view.prompt_tournament_creation()
         rounds = []
-        players = []  # plqyers list for the tournament
+        players = []  # players list for the tournament
         players_points = {}  # (begin at 0) dict[player] = player_points
         new_tournament = Tournament(
             new_tournement_info["name"],
@@ -112,9 +112,9 @@ class TournamentController:
                     already_players_played_list = self.already_players_list(
                                                        play1
                                                        )
-                    list_rest_players = (set(sorted_players_list) -
-                                         set(already_players_played_list) -
-                                         set([play1])
+                    list_rest_players = (set(sorted_players_list)
+                                         - set(already_players_played_list)
+                                         - set([play1])
                                          )
                     list_rest_players = list(list_rest_players)
                     if len(list_rest_players) != 0:
@@ -225,9 +225,6 @@ class TournamentController:
         tournament_players_points = {}
         for index, points in load_tournament_info["players_points"].items():
             tournament_players_points[self.players_all[int(index)]] = points
-        # tournament_players_list = []
-        # for index in load_tournament_info["players"]:
-        #         tournament_players_list.append(self.players_all[index])
         new_tournament = Tournament(
             load_tournament_info["name"],
             load_tournament_info["location"],

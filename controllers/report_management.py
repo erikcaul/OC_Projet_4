@@ -4,10 +4,8 @@ from views.tournament_view import TournamentView
 
 
 class ReportManagement:
-    def __init__(self, player_controller, tournament_controller, active=True):
+    def __init__(self, player_controller, tournament_controller):
         self.report_view = ReportView()
-        # self.main_loop = MainLoop()
-        # self.active = active
         self.player_controller = player_controller
         self.tournament_view = TournamentView()
         self.tournament_controller = tournament_controller
