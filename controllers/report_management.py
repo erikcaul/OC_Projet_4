@@ -46,35 +46,51 @@ class ReportManagement:
     def print_all_players_list_by_ranking(self):
         print("All players list by ranking : ")
         all_players = self.player_controller.players
-        sorted_all_players = sorted(all_players, key=lambda p: p.ranking, reverse=True)
+        sorted_all_players = sorted(all_players,
+                                    key=lambda p: p.ranking, reverse=True)
         self.report_view.print_players_report(sorted_all_players)
 
     def print_tournament_players_list_by_alpha_order(self):
-        pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
+        pick_tournament = self.tournament_view.pick_up_tournament(
+                                               self.tournaments_list
+                                               )
         tournament_players = pick_tournament.players
-        sorted_tournament_players = sorted(tournament_players, key=lambda p: p.name)
+        sorted_tournament_players = sorted(tournament_players,
+                                           key=lambda p: p.name
+                                           )
         print("Tournament players list by alphabetical order : ")
         self.report_view.print_players_report(sorted_tournament_players)
 
     def print_tournament_players_list_by_ranking(self):
-        pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
+        pick_tournament = self.tournament_view.pick_up_tournament(
+                                               self.tournaments_list
+                                               )
         tournament_players = pick_tournament.players
-        sorted_tournament_players = sorted(tournament_players, key=lambda p: p.ranking, reverse=True)
+        sorted_tournament_players = sorted(tournament_players,
+                                           key=lambda p: p.ranking,
+                                           reverse=True
+                                           )
         print("Tournament players list by ranking : ")
         self.report_view.print_players_report(sorted_tournament_players)
 
     def print_all_tournaments_list(self):
-        sorted_all_tournament = sorted(self.tournaments_list, key=lambda p: p.name)
+        sorted_all_tournament = sorted(self.tournaments_list,
+                                       key=lambda p: p.name
+                                       )
         print("List of all the tournaments : ")
         self.report_view.print_tournament_report(sorted_all_tournament)
 
     def print_all_rounds_tournament_list(self):
-        pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
+        pick_tournament = self.tournament_view.pick_up_tournament(
+                                               self.tournaments_list
+                                               )
         print("Tournament rounds list : ")
         self.report_view.print_rounds_report(pick_tournament.rounds)
 
     def print_all_games_tournament_list(self):
-        pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
+        pick_tournament = self.tournament_view.pick_up_tournament(
+                                               self.tournaments_list
+                                               )
         print("Tournament games list : ")
         for round in pick_tournament.rounds:
             print(round.round_name)

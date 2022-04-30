@@ -1,5 +1,4 @@
 """Tournaments Controller"""
-from models.player import Player
 from models.round import Round
 from models.game import Game
 from views.tournament_view import TournamentView
@@ -13,16 +12,15 @@ class TournamentController:
     def __init__(self, players_all):
         self.tournament_view = TournamentView()
         self.tools = Tools()
-        self.players_all = players_all # list of all players
-        self.rounds = [] # rounds list
-        self.tournaments_list = [] # liste de tournament
-
+        self.players_all = players_all  # list of all players
+        self.rounds = []  # rounds list
+        self.tournaments_list = []  # tournaments list
 
     def new_tournament(self):
         new_tournement_info = self.tournament_view.prompt_tournament_creation()
         rounds = []
-        players = [] # liste des players du tournament
-        players_points = {} # (commence à 0) nombre de points par joueur pour le tournois (dict[instance joueur] = nombre de points)
+        players = []  # plqyers list for the tournament
+        players_points = {}  # (begin at 0) dict[player] = player_points
         new_tournament = Tournament(
             new_tournement_info["name"],
             new_tournement_info["location"],
@@ -37,14 +35,20 @@ class TournamentController:
         self.tournaments_list.append(new_tournament)
 
     def add_player(self):
-        pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
+        pick_tournament = self.tournament_view.pick_up_tournament(
+                                               self.tournaments_list
+                                               )
         if pick_tournament is None:
             return
         if len(pick_tournament.rounds) != 0:
             print('Tournament is beginning...')
             return
-        if len(pick_tournament.players) < (int(pick_tournament.turns_number)*2):
-            pick_player = self.tournament_view.pick_up_player(self.players_all, pick_tournament.players)
+        if len(pick_tournament.players) < (int(pick_tournament.turns_number)
+                                           * 2):
+            pick_player = self.tournament_view.pick_up_player(
+                                               self.players_all,
+                                               pick_tournament.players
+                                               )
             pick_tournament.players.append(pick_player)
             pick_tournament.players_points[pick_player] = 0
         else:
@@ -69,7 +73,11 @@ class TournamentController:
         if tournament_turn_number == 0:
             # First round : Sorting all the players with their ranking
             tournament_players = tournament.players
-            sorted_tournament_players = sorted(tournament_players, key=lambda p: p.ranking, reverse=True)
+            sorted_tournament_players = sorted(
+                                              tournament_players,
+                                              key=lambda p: p.ranking,
+                                              reverse=True
+                                              )
             half = len(sorted_tournament_players)//2
             list1 = sorted_tournament_players[:half]
             list2 = sorted_tournament_players[half:]
@@ -87,18 +95,29 @@ class TournamentController:
         else:
             # N round : Sorting all the players with their points number
             players_points_dict = tournament.players_points
-            sorted_players_points_dict = sorted(players_points_dict.items(), key=lambda item: (item[1], item[0].ranking))
-            sorted_players_list = map(lambda item: item[0], sorted_players_points_dict)
+            sorted_players_points_dict = sorted(
+                                                players_points_dict.items(),
+                                                key=lambda item:
+                                                (item[1], item[0].ranking)
+                                                )
+            sorted_players_list = map(lambda item: item[0],
+                                      sorted_players_points_dict
+                                      )
             sorted_players_list = list(sorted_players_list)
             # Create a Game object and add it to a list
             games_list = []
             if len(sorted_players_list) != 0:
                 while len(sorted_players_list) > 0:
                     play1 = sorted_players_list[0]
-                    already_players_played_list = self.already_players_list(play1)
-                    list_rest_players = set(sorted_players_list) - set(already_players_played_list) - set([play1])
+                    already_players_played_list = self.already_players_list(
+                                                       play1
+                                                       )
+                    list_rest_players = (set(sorted_players_list) -
+                                         set(already_players_played_list) -
+                                         set([play1])
+                                         )
                     list_rest_players = list(list_rest_players)
-                    if len(list_rest_players) != 0: # gérer l'exception quand list_rest_players is vide
+                    if len(list_rest_players) != 0:
                         new_game = Game(
                             play1,
                             list_rest_players[0],
@@ -113,14 +132,13 @@ class TournamentController:
                 return
             return games_list
 
-
     def create_a_round(self):
-        pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
+        pick_tournament = self.tournament_view.pick_up_tournament(
+                                               self.tournaments_list
+                                               )
         tournament_players_count = len(pick_tournament.players)
         tournament_rounds_count = int(pick_tournament.turns_number)
-        # vérifer que le nombre de joueur est pair
         if tournament_players_count % 2 == 0:
-            # + vérifier qu'il y a suffisemment de joureurs pour faire tous les tours du tournois
             if tournament_players_count // 2 == tournament_rounds_count:
                 games = self.match_making(pick_tournament)
                 begin_date = time.asctime()
@@ -138,7 +156,9 @@ class TournamentController:
             return
 
     def play_a_round(self):
-        pick_tournament = self.tournament_view.pick_up_tournament(self.tournaments_list)
+        pick_tournament = self.tournament_view.pick_up_tournament(
+                                               self.tournaments_list
+                                               )
         # Validate Round exists
         if len(pick_tournament.rounds) > 0:
             # Select last Round
@@ -175,10 +195,13 @@ class TournamentController:
 
     def update_player_ranking(self):
         # pick_up_player
-        pick_up_player = self.tournament_view.pick_up_player(self.players_all, [])
+        pick_up_player = self.tournament_view.pick_up_player(
+                                              self.players_all,
+                                              []
+                                              )
         print("Player selected : " + pick_up_player.name)
         # prompt new score
-        new_score = input('Please enter the new score for the player selected :\n')
+        new_score = input('Please enter the new score (selected player) :\n')
         pick_up_player.ranking = new_score
         print(pick_up_player.name + " = " + pick_up_player.ranking)
 
@@ -194,11 +217,11 @@ class TournamentController:
     def load_tournament_from_bd(self, load_tournament_info):
         tournament_players_list = []
         for index in load_tournament_info["players"]:
-                tournament_players_list.append(self.players_all[index])
+            tournament_players_list.append(self.players_all[index])
         rounds_list = []
         for round in load_tournament_info["rounds"]:
-                load_round = self.round_into_object(round)
-                rounds_list.append(load_round)
+            load_round = self.round_into_object(round)
+            rounds_list.append(load_round)
         tournament_players_points = {}
         for index, points in load_tournament_info["players_points"].items():
             tournament_players_points[self.players_all[int(index)]] = points
@@ -211,7 +234,7 @@ class TournamentController:
             load_tournament_info["date"],
             rounds_list,
             tournament_players_list,
-            load_tournament_info["players_points"], # ressorte de l'index et mette objet player
+            load_tournament_info["players_points"],
             load_tournament_info["time_controller"],
             load_tournament_info["turns_number"],
             load_tournament_info["description"]

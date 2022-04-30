@@ -1,15 +1,12 @@
 """Report view"""
-import json
 from views.player_view import PlayerView
 from views.tournament_view import TournamentView
-
 
 
 class ReportView:
     def __init__(self):
         self.player_view = PlayerView()
         self.tournament_view = TournamentView()
-
 
     def prompt_report_choice(self):
         """ Prompt for a report to choice"""
@@ -27,7 +24,6 @@ class ReportView:
         print("---------------------------------------------------")
         choice = input('Enter your choice between 1 and 8 : \n')
         return choice
-
 
     def print_players_report(self, players_list):
         for player in players_list:
