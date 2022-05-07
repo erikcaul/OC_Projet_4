@@ -49,27 +49,33 @@ class ReportManagement:
         self.report_view.print_players_report(sorted_all_players)
 
     def print_tournament_players_list_by_alpha_order(self):
-        pick_tournament = self.tournament_view.pick_up_tournament(
+        if len(self.tournaments_list) != 0:
+            pick_tournament = self.tournament_view.pick_up_tournament(
                                                self.tournaments_list
                                                )
-        tournament_players = pick_tournament.players
-        sorted_tournament_players = sorted(tournament_players,
-                                           key=lambda p: p.name
-                                           )
-        print("Tournament players list by alphabetical order : ")
-        self.report_view.print_players_report(sorted_tournament_players)
+            tournament_players = pick_tournament.players
+            sorted_tournament_players = sorted(tournament_players,
+                                               key=lambda p: p.name
+                                               )
+            print("Tournament players list by alphabetical order : ")
+            self.report_view.print_players_report(sorted_tournament_players)
+        else:
+            print("No tournament created.")
 
     def print_tournament_players_list_by_ranking(self):
-        pick_tournament = self.tournament_view.pick_up_tournament(
+        if len(self.tournaments_list) != 0:
+            pick_tournament = self.tournament_view.pick_up_tournament(
                                                self.tournaments_list
                                                )
-        tournament_players = pick_tournament.players
-        sorted_tournament_players = sorted(tournament_players,
-                                           key=lambda p: p.ranking,
-                                           reverse=True
-                                           )
-        print("Tournament players list by ranking : ")
-        self.report_view.print_players_report(sorted_tournament_players)
+            tournament_players = pick_tournament.players
+            sorted_tournament_players = sorted(tournament_players,
+                                               key=lambda p: p.ranking,
+                                               reverse=True
+                                               )
+            print("Tournament players list by ranking : ")
+            self.report_view.print_players_report(sorted_tournament_players)
+        else:
+            print("No tournament created.")
 
     def print_all_tournaments_list(self):
         sorted_all_tournament = sorted(self.tournaments_list,
@@ -79,17 +85,23 @@ class ReportManagement:
         self.report_view.print_tournament_report(sorted_all_tournament)
 
     def print_all_rounds_tournament_list(self):
-        pick_tournament = self.tournament_view.pick_up_tournament(
+        if len(self.tournaments_list) != 0:
+            pick_tournament = self.tournament_view.pick_up_tournament(
                                                self.tournaments_list
                                                )
-        print("Tournament rounds list : ")
-        self.report_view.print_rounds_report(pick_tournament.rounds)
+            print("Tournament rounds list : ")
+            self.report_view.print_rounds_report(pick_tournament.rounds)
+        else:
+            print("No tournament created.")
 
     def print_all_games_tournament_list(self):
-        pick_tournament = self.tournament_view.pick_up_tournament(
+        if len(self.tournaments_list) != 0:
+            pick_tournament = self.tournament_view.pick_up_tournament(
                                                self.tournaments_list
                                                )
-        print("Tournament games list : ")
-        for round in pick_tournament.rounds:
-            print(round.round_name)
-            self.report_view.print_games_report(round.games)
+            print("Tournament games list : ")
+            for round in pick_tournament.rounds:
+                print(round.round_name)
+                self.report_view.print_games_report(round.games)
+        else:
+            print("No tournament created.")

@@ -57,6 +57,8 @@ class TournamentController:
     def already_players_list(self, player):
         """List of the players whose have already played with the player"""
         already_players_played_list = []
+        if self.rounds is None:
+            return
         for round in self.rounds:
             for game in round.games:
                 if game.player_1 == player:
@@ -136,6 +138,8 @@ class TournamentController:
         pick_tournament = self.tournament_view.pick_up_tournament(
                                                self.tournaments_list
                                                )
+        if pick_tournament is None:
+            return
         tournament_players_count = len(pick_tournament.players)
         tournament_rounds_count = int(pick_tournament.turns_number)
         if tournament_players_count % 2 == 0:
@@ -159,6 +163,8 @@ class TournamentController:
         pick_tournament = self.tournament_view.pick_up_tournament(
                                                self.tournaments_list
                                                )
+        if pick_tournament is None:
+            return
         # Validate Round exists
         if len(pick_tournament.rounds) > 0:
             # Select last Round
