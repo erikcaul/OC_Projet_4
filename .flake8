@@ -2,3 +2,5 @@
 exclude =
     __pycache__
     env
+
+max-line-length = 119

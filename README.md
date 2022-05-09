@@ -13,5 +13,8 @@ Dans Terminal, à la racine du projet, écrire : source env/Scripts/activate
 Installer les paquets Python répertoriés dans le fichier requirements.txt :
 Dans Terminal, à la racine du projet, écrire : pip install -r requirements.txt
 
+Lancer la génération de rapport Flake8 : 
+Dans Terminal, à la racine du projet, écrire : flake8 --format=html --htmldir=flake-report
+
 Exécuter le code d'application :
 Dans Terminal, à la racine du projet, écrire : python main.py

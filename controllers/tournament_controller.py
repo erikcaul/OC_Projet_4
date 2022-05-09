@@ -205,6 +205,8 @@ class TournamentController:
                                               self.players_all,
                                               []
                                               )
+        if pick_up_player is None:
+            return
         print("Player selected : " + pick_up_player.name)
         # prompt new score
         new_score = input('Please enter the new score (selected player) :\n')
